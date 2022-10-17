@@ -149,17 +149,272 @@ M.config = function()
     lvim.builtin.which_key.mappings["e"] = { "<cmd>NvimTreeToggle<CR>", " Explorer" }
   end
 
-  -- Toggleterm
-  -- =========================================
-  lvim.builtin.terminal.active = true
-  lvim.builtin.terminal.execs = {}
-  lvim.builtin.terminal.autochdir = true
-  lvim.builtin.terminal.open_mapping = nil
-  lvim.builtin.terminal.size = vim.o.columns * 0.4
-  lvim.builtin.terminal.on_config_done = function()
-    M.create_terminal(2, "<c-\\>", 20, "float")
-    M.create_terminal(3, "<A-0>", vim.o.columns * 0.4, "vertical")
-  end
+  -- -- Toggleterm
+  -- -- =========================================
+  -- lvim.builtin.terminal.active = true
+  -- lvim.builtin.terminal.execs = {}
+  -- lvim.builtin.terminal.autochdir = true
+  -- lvim.builtin.terminal.open_mapping = nil
+  -- lvim.builtin.terminal.size = vim.o.columns * 0.4
+  -- lvim.builtin.terminal.on_config_done = function()
+  --   M.create_terminal(2, "<c-\\>", 20, "float")
+  --   M.create_terminal(3, "<A-0>", vim.o.columns * 0.4, "vertical")
+  -- end
+
+  -- -- Treesitter
+  -- -- =========================================
+  -- -- lvim.builtin.treesitter.context_commentstring.enable = true
+  -- local languages = vim.tbl_flatten {
+  --   "bash",
+  --   "javascript",
+  --   "json",
+  --   "lua",
+  --   "python",
+  --   "typescript",
+  --   "tsx",
+  --   "yaml",
+  --   "hcl",
+  --   "comment",
+  --   "go",
+  --   "gomod",
+  --   "vim"
+  -- }
+  -- lvim.builtin.treesitter.ensure_installed = languages
+  -- lvim.builtin.treesitter.highlight.disable = { "org" }
+  -- lvim.builtin.treesitter.highlight.aditional_vim_regex_highlighting = { "org" }
+  -- lvim.builtin.treesitter.ignore_install = { "haskell", "norg" }
+  -- lvim.builtin.treesitter.incremental_selection = {
+  --   enable = true,
+  --   keymaps = {
+  --     init_selection = "<C-n>",
+  --     node_incremental = "<C-n>",
+  --     scope_incremental = "<C-s>",
+  --     node_decremental = "<C-r>",
+  --   },
+  -- }
+  -- lvim.builtin.treesitter.indent = { enable = true, disable = { "python" } } -- treesitter is buggy :(
+  -- lvim.builtin.treesitter.matchup.enable = true
+  -- -- lvim.treesitter.textsubjects.enable = true
+  -- lvim.treesitter.playground.enable = true
+  -- lvim.builtin.treesitter.query_linter = {
+  --   enable = true,
+  --   use_virtual_text = true,
+  --   lint_events = { "BufWrite", "CursorHold" },
+  -- }
+  -- lvim.builtin.treesitter.textobjects = {
+  --   select = {
+  --     enable = true,
+  --     lookahead = true,
+  --     keymaps = {
+  --       -- You can use the capture groups defined in textobjects.scm
+  --       ["aA"] = "@attribute.outer",
+  --       ["iA"] = "@attribute.inner",
+  --       ["ab"] = "@block.outer",
+  --       ["ib"] = "@block.inner",
+  --       ["ac"] = "@call.outer",
+  --       ["ic"] = "@call.inner",
+  --       ["at"] = "@class.outer",
+  --       ["it"] = "@class.inner",
+  --       ["a/"] = "@comment.outer",
+  --       ["i/"] = "@comment.inner",
+  --       ["ai"] = "@conditional.outer",
+  --       ["ii"] = "@conditional.inner",
+  --       ["aF"] = "@frame.outer",
+  --       ["iF"] = "@frame.inner",
+  --       ["af"] = "@function.outer",
+  --       ["if"] = "@function.inner",
+  --       ["al"] = "@loop.outer",
+  --       ["il"] = "@loop.inner",
+  --       ["aa"] = "@parameter.outer",
+  --       ["ia"] = "@parameter.inner",
+  --       ["is"] = "@scopename.inner",
+  --       ["as"] = "@statement.outer",
+  --       ["av"] = "@variable.outer",
+  --       ["iv"] = "@variable.inner",
+  --     },
+  --   },
+  --   swap = {
+  --     enable = true,
+  --     swap_next = {
+  --       ["<leader><M-a>"] = "@parameter.inner",
+  --       ["<leader><M-f>"] = "@function.outer",
+  --       ["<leader><M-e>"] = "@element",
+  --     },
+  --     swap_previous = {
+  --       ["<leader><M-A>"] = "@parameter.inner",
+  --       ["<leader><M-F>"] = "@function.outer",
+  --       ["<leader><M-E>"] = "@element",
+  --     },
+  --   },
+  --   move = {
+  --     enable = true,
+  --     set_jumps = true, -- whether to set jumps in the jumplist
+  --     goto_next_start = {
+  --       ["]p"] = "@parameter.inner",
+  --       ["]f"] = "@function.outer",
+  --       ["]]"] = "@class.outer",
+  --     },
+  --     goto_next_end = {
+  --       ["]F"] = "@function.outer",
+  --       ["]["] = "@class.outer",
+  --     },
+  --     goto_previous_start = {
+  --       ["[p"] = "@parameter.inner",
+  --       ["[f"] = "@function.outer",
+  --       ["[["] = "@class.outer",
+  --     },
+  --     goto_previous_end = {
+  --       ["[F"] = "@function.outer",
+  --       ["[]"] = "@class.outer",
+  --     },
+  --   },
+  -- }
+
+  -- -- WhichKey
+  -- -- =========================================
+  -- lvim.builtin.which_key.setup.window.winblend = 10
+  -- lvim.builtin.which_key.setup.window.border = "none"
+  -- lvim.builtin.which_key.setup.plugins.presets.z = true
+  -- lvim.builtin.which_key.setup.plugins.presets.g = true
+  -- lvim.builtin.which_key.setup.plugins.presets.windows = true
+  -- lvim.builtin.which_key.setup.plugins.presets.nav = true
+  -- lvim.builtin.which_key.setup.plugins.marks = true
+  -- lvim.builtin.which_key.setup.plugins.registers = true
+  -- lvim.builtin.which_key.setup.icons = {
+  --   breadcrumb = "/", -- symbol used in the command line area that shows your active key combo
+  --   separator = "·", -- symbol used between a key and it's label
+  --   group = "", -- symbol prepended to a group
+  -- }
+  -- lvim.builtin.which_key.setup.ignore_missing = true
+
+  -- -- Telescope
+  -- -- =========================================
+  -- -- lvim.builtin.telescope.defaults.path_display = { "smart", "absolute", "truncate" }
+  -- lvim.builtin.telescope.defaults.dynamic_preview_title = true
+  -- lvim.builtin.telescope.defaults.path_display = { shorten = 10 }
+  -- lvim.builtin.telescope.defaults.prompt_prefix = "xxxx  "
+  -- lvim.builtin.telescope.defaults.borderchars = {
+  --   prompt = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+  --   results = { "─", "▐", "─", "│", "╭", "▐", "▐", "╰" },
+  --   -- results = {' ', '▐', '▄', '▌', '▌', '▐', '▟', '▙' };
+  --   preview = { " ", "│", " ", "▌", "▌", "╮", "╯", "▌" },
+  -- }
+  -- lvim.builtin.telescope.defaults.selection_caret = "  "
+  -- lvim.builtin.telescope.defaults.cache_picker = { num_pickers = 3 }
+  -- lvim.builtin.telescope.defaults.layout_strategy = "horizontal"
+  -- lvim.builtin.telescope.defaults.file_ignore_patterns = {
+  --   "vendor/*",
+  --   "%.lock",
+  --   "__pycache__/*",
+  --   "%.sqlite3",
+  --   "%.ipynb",
+  --   "node_modules/*",
+  --   "%.jpg",
+  --   "%.jpeg",
+  --   "%.png",
+  --   "%.svg",
+  --   "%.otf",
+  --   "%.ttf",
+  --   ".git/",
+  --   "%.webp",
+  --   ".dart_tool/",
+  --   ".github/",
+  --   ".gradle/",
+  --   ".idea/",
+  --   ".settings/",
+  --   ".vscode/",
+  --   "__pycache__/",
+  --   "build/",
+  --   "env/",
+  --   "gradle/",
+  --   "node_modules/",
+  --   "target/",
+  --   "%.pdb",
+  --   "%.dll",
+  --   "%.class",
+  --   "%.exe",
+  --   "%.cache",
+  --   "%.ico",
+  --   "%.pdf",
+  --   "%.dylib",
+  --   "%.jar",
+  --   "%.docx",
+  --   "%.met",
+  --   "smalljre_*/*",
+  --   ".vale/",
+  --   "%.burp",
+  --   "%.mp4",
+  --   "%.mkv",
+  --   "%.rar",
+  --   "%.zip",
+  --   "%.7z",
+  --   "%.tar",
+  --   "%.bz2",
+  --   "%.epub",
+  --   "%.flac",
+  --   "%.tar.gz",
+  -- }
+  -- local user_telescope = require "user.telescope"
+  -- lvim.builtin.telescope.defaults.layout_config = user_telescope.layout_config()
+  -- local actions = require "telescope.actions"
+  -- lvim.builtin.telescope.defaults.mappings = {
+  --   i = {
+  --     ["<c-c>"] = require("telescope.actions").close,
+  --     ["<c-y>"] = require("telescope.actions").which_key,
+  --     ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+  --     ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
+  --     ["<cr>"] = user_telescope.multi_selection_open,
+  --     ["<c-v>"] = user_telescope.multi_selection_open_vsplit,
+  --     ["<c-s>"] = user_telescope.multi_selection_open_split,
+  --     ["<c-t>"] = user_telescope.multi_selection_open_tab,
+  --     ["<c-j>"] = actions.move_selection_next,
+  --     ["<c-k>"] = actions.move_selection_previous,
+  --     ["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+  --   },
+  --   n = {
+  --     ["<esc>"] = actions.close,
+  --     ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+  --     ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
+  --     ["<cr>"] = user_telescope.multi_selection_open,
+  --     ["<c-v>"] = user_telescope.multi_selection_open_vsplit,
+  --     ["<c-s>"] = user_telescope.multi_selection_open_split,
+  --     ["<c-t>"] = user_telescope.multi_selection_open_tab,
+  --     ["<c-j>"] = actions.move_selection_next,
+  --     ["<c-k>"] = actions.move_selection_previous,
+  --     ["<c-n>"] = actions.cycle_history_next,
+  --     ["<c-p>"] = actions.cycle_history_prev,
+  --     ["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+  --     ["dd"] = require("telescope.actions").delete_buffer,
+  --   },
+  -- }
+  -- local telescope_actions = require "telescope.actions.set"
+  -- lvim.builtin.telescope.pickers.git_files = {
+  --   hidden = true,
+  --   show_untracked = true,
+  --   layout_strategy = "horizontal",
+  -- }
+  -- lvim.builtin.telescope.pickers.live_grep = {
+  --   only_sort_text = true,
+  --   layout_strategy = "horizontal",
+  -- }
+  -- lvim.builtin.telescope.pickers.find_files = {
+  --   layout_strategy = "horizontal",
+  --   attach_mappings = function(_)
+  --     telescope_actions.select:enhance {
+  --       post = function()
+  --         vim.cmd ":normal! zx"
+  --       end,
+  --     }
+  --     return true
+  --   end,
+  --   find_command = { "fd", "--type=file", "--hidden" },
+  -- }
+  -- lvim.builtin.telescope.on_config_done = function(telescope)
+  --   telescope.load_extension "file_create"
+  --   if lvim.builtin.file_browser.active then
+  --     telescope.load_extension "file_browser"
+  --   end
+  -- end
 end
 
 return M
