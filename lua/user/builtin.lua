@@ -127,5 +127,34 @@ M.config = function()
   lvim.builtin.gitsigns.opts._extmark_signs = true
   lvim.builtin.gitsigns.opts.current_line_blame_formatter = " <author>, <author_time> · <summary>"
 
+  -- IndentBlankline
+  -- =========================================
+  require("user.indent_blankline").config()
 
+  -- NvimTree
+  -- =========================================
+  lvim.builtin.nvimtree.setup.diagnostics = {
+    enable = true,
+    icons = {
+      hint = kind.icons.hint,
+      info = kind.icons.info,
+      warning = kind.icons.warn,
+      error = kind.icons.error,
+    },
+  }
+  lvim.builtin.nvimtree.on_config_done = function(_)
+    lvim.builtin.which_key.mappings["e"] = { "<cmd>NvimTreeToggle<CR>", " Explorer" }
+  end
+
+  -- Toggleterm
+  -- =========================================
+  lvim.builtin.terminal.active = true
+  lvim.builtin.terminal.execs = {}
+  lvim.builtin.terminal.autochdir = true
+  lvim.builtin.terminal.open_mapping = nil
+  lvim.builtin.terminal.size = vim.o.columns * 0.4
+  lvim.builtin.terminal.on_config_done = function()
+    M.create_terminal(2, "<c-\\>", 20, "float")
+    M.create_terminal(3, "<A-0>", vim.o.columns * 0.4, "vertical")
+  end
 end
