@@ -142,6 +142,9 @@ M.config = function()
       error = kind.icons.error,
     },
   }
+
+  lvim.builtin.nvimtree.setup.view.side = "left"
+  lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
   lvim.builtin.nvimtree.on_config_done = function(_)
     lvim.builtin.which_key.mappings["e"] = { "<cmd>NvimTreeToggle<CR>", " Explorer" }
   end
@@ -158,3 +161,5 @@ M.config = function()
     M.create_terminal(3, "<A-0>", vim.o.columns * 0.4, "vertical")
   end
 end
+
+return M
