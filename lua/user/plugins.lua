@@ -33,6 +33,11 @@ M.config = function()
     {
       "phaazon/hop.nvim",
       branch = "v2",
+    }, {
+      "simrat39/symbols-outline.nvim",
+      config = function()
+        require("user.symbols_outline").config()
+      end,
     },
   }
   -- não sei o poruqe, mas a função config do hop não funciona nem pelo satanás.

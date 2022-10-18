@@ -69,4 +69,17 @@ M.set_hop_keymaps = function()
   )
 end
 
+M.config = function()
+  lvim.keys.normal_mode["<CR>"] = {
+    "<cmd>lua require('user.neovim').maximize_current_split()<CR>",
+    { noremap = true, silent = true, nowait = true },
+  }
+  lvim.keys.insert_mode["<A-a>"] = "<ESC>ggVG<CR>"
+  lvim.builtin.which_key.mappings["o"] = { "<cmd>SymbolsOutline<cr>", " Symbol Outline" }
+  local user = vim.env.USER
+  if user and user == "abz" then
+    M.set_wezterm_keybindings()
+  end
+end
+
 return M
