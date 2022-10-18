@@ -3,9 +3,12 @@
 lvim.log.level = "warn"
 lvim.leader = "space"
 lvim.format_on_save = true
-lvim.colorscheme = "onedarker"
+lvim.colorscheme = "gruvbox-material"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
+
+
+
 lvim.builtin.sell_your_soul_to_devil = { active = false, prada = false } -- if you want microsoft to abuse your soul
 lvim.builtin.fancy_wild_menu = { active = true } -- enable/disable cmp-cmdline
 
@@ -27,6 +30,8 @@ lvim.builtin.notify.active = true
 -- lvim.builtin.terminal.active = true
 lvim.builtin.noice = { active = false }
 
+
+require("user.plugins").config()
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
