@@ -180,21 +180,23 @@ M.config = function()
     "vim"
   }
   lvim.builtin.treesitter.ensure_installed = languages
-  -- lvim.builtin.treesitter.highlight.disable = { "org" }
-  -- lvim.builtin.treesitter.highlight.aditional_vim_regex_highlighting = { "org" }
-  -- lvim.builtin.treesitter.ignore_install = { "haskell", "norg" }
-  -- lvim.builtin.treesitter.incremental_selection = {
-  --   enable = true,
-  --   keymaps = {
-  --     init_selection = "<C-n>",
-  --     node_incremental = "<C-n>",
-  --     scope_incremental = "<C-s>",
-  --     node_decremental = "<C-r>",
-  --   },
+  lvim.builtin.treesitter.highlight.disable = { "org" }
+  lvim.builtin.treesitter.highlight.aditional_vim_regex_highlighting = { "org" }
+  lvim.builtin.treesitter.ignore_install = { "haskell", "norg" }
+  lvim.builtin.treesitter.incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<C-n>",
+      node_incremental = "<C-n>",
+      scope_incremental = "<C-s>",
+      node_decremental = "<C-r>",
+    },
+  }
+  lvim.builtin.treesitter.indent = { enable = true, disable = { "python" } } -- treesitter is buggy :(
+  lvim.builtin.treesitter.matchup.enable = true
+  -- lvim.treesitter.textsubjects = {
+  --   enable = true
   -- }
-  -- lvim.builtin.treesitter.indent = { enable = true, disable = { "python" } } -- treesitter is buggy :(
-  -- lvim.builtin.treesitter.matchup.enable = true
-  -- -- lvim.treesitter.textsubjects.enable = true
   -- lvim.treesitter.playground.enable = true
   -- lvim.builtin.treesitter.query_linter = {
   --   enable = true,
