@@ -1,4 +1,5 @@
 -- general
+
 lvim.log.level = "warn"
 lvim.leader = "space"
 lvim.format_on_save = true
@@ -13,6 +14,7 @@ lvim.builtin.indentlines = {
 }
 lvim.builtin.noice = { active = false }
 require("user.keymaps")
+require("user.neovim").config()
 require("user.builtin").config()
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
