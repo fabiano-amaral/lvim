@@ -111,6 +111,12 @@ M.config = function()
         require("user.diffview").config()
       end,
       disable = not lvim.builtin.fancy_diff.active,
+    }, {
+      "nvim-telescope/telescope-live-grep-args.nvim",
+    }, {
+      "editorconfig/editorconfig-vim",
+      event = "BufRead",
+      disable = not lvim.builtin.editorconfig.active,
     },
   }
   -- não sei o poruqe, mas a função config do hop não funciona nem pelo satanás.

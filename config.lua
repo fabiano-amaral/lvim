@@ -22,7 +22,6 @@ lvim.lsp.automatic_servers_installation = false
 lvim.lsp.code_lens_refresh = true
 lvim.builtin.sell_your_soul_to_devil = { active = true, prada = true } -- if you want microsoft to abuse your soul
 lvim.builtin.tabnine = { active = true } -- change to false if you don't like tabnine
-
 lvim.builtin.fancy_wild_menu = { active = true } -- enable/disable cmp-cmdline
 lvim.builtin.fancy_diff = { active = false }
 lvim.builtin.indentlines = {
@@ -30,15 +29,9 @@ lvim.builtin.indentlines = {
 }
 lvim.builtin.noice = { active = false }
 require("user.builtin").config()
-
--- keymappings [view all the defaults by pressing <leader>Lk]
--- add your own keymapping
-
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
--- lvim.builtin.terminal.active = true
-
 lvim.builtin.noice = { active = false }
 lvim.builtin.tag_provider = "symbols-outline" -- change this to use different tag providers ( symbols-outline or vista )
 lvim.builtin.lsp_lines = false -- enable/disable lsp_lines to display lsp virtual text below instead of behind
@@ -46,7 +39,7 @@ if lvim.builtin.lsp_lines then
   lvim.lsp.diagnostics.virtual_text = false
 end
 lvim.builtin.persistence = { active = true } -- change to false if you don't want persistence
-
+lvim.builtin.editorconfig = { active = true } -- enable/disable editorconfig
 
 
 
