@@ -38,6 +38,26 @@ M.config = function()
       config = function()
         require("user.symbols_outline").config()
       end,
+    }, {
+      "tzachar/cmp-tabnine",
+      run = "./install.sh",
+      requires = "hrsh7th/nvim-cmp",
+      config = function()
+        local tabnine = require "cmp_tabnine.config"
+        tabnine:setup {
+          max_lines = 1000,
+          max_num_results = 10,
+          sort = true,
+        }
+      end,
+      opt = true,
+      event = "InsertEnter",
+    }, {
+      "folke/twilight.nvim",
+      config = function()
+        require("user.twilight").config()
+      end,
+      event = "BufRead",
     },
   }
   -- não sei o poruqe, mas a função config do hop não funciona nem pelo satanás.

@@ -31,8 +31,10 @@ lvim.builtin.notify.active = true
 lvim.builtin.noice = { active = false }
 
 
+
 require("user.plugins").config()
 require("user.keybindings").config()
+
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
