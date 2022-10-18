@@ -4,31 +4,50 @@ lvim.log.level = "warn"
 lvim.leader = "space"
 lvim.format_on_save = true
 lvim.colorscheme = "gruvbox-material"
+lvim.builtin.time_based_themes = true -- set false to use your own configured theme
+lvim.transparent_window = false -- enable/disable transparency
+lvim.debug = false
+vim.lsp.set_log_level "error"
+lvim.log.level = "warn"
+
+require("user.neovim").config()
+-- lvim.lsp.diagnostics.virtual_text = false -- remove this line if you want to see inline errors
+
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
 
 
-lvim.builtin.sell_your_soul_to_devil = { active = false, prada = false } -- if you want microsoft to abuse your soul
-lvim.builtin.fancy_wild_menu = { active = true } -- enable/disable cmp-cmdline
+lvim.lsp.automatic_servers_installation = false
+lvim.lsp.code_lens_refresh = true
+lvim.builtin.sell_your_soul_to_devil = { active = true, prada = true } -- if you want microsoft to abuse your soul
+lvim.builtin.tabnine = { active = true } -- change to false if you don't like tabnine
 
+lvim.builtin.fancy_wild_menu = { active = true } -- enable/disable cmp-cmdline
+lvim.builtin.fancy_diff = { active = false }
 lvim.builtin.indentlines = {
   active = true
 }
 lvim.builtin.noice = { active = false }
-require("user.keymaps")
-require("user.neovim").config()
 require("user.builtin").config()
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 -- add your own keymapping
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 -- lvim.builtin.terminal.active = true
+
 lvim.builtin.noice = { active = false }
+lvim.builtin.tag_provider = "symbols-outline" -- change this to use different tag providers ( symbols-outline or vista )
+lvim.builtin.lsp_lines = false -- enable/disable lsp_lines to display lsp virtual text below instead of behind
+if lvim.builtin.lsp_lines then
+  lvim.lsp.diagnostics.virtual_text = false
+end
+lvim.builtin.persistence = { active = true } -- change to false if you don't want persistence
+
+
 
 
 

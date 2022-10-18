@@ -75,7 +75,13 @@ M.config = function()
     { noremap = true, silent = true, nowait = true },
   }
   lvim.keys.insert_mode["<A-a>"] = "<ESC>ggVG<CR>"
-  lvim.builtin.which_key.mappings["o"] = { "<cmd>SymbolsOutline<cr>", " Symbol Outline" }
+
+  if lvim.builtin.tag_provider == "symbols-outline" then
+    lvim.builtin.which_key.mappings["o"] = { "<cmd>SymbolsOutline<cr>", " Symbol Outline" }
+  elseif lvim.builtin.tag_provider == "vista" then
+    lvim.builtin.which_key.mappings["o"] = { "<cmd>Vista!!<cr>", "Vista" }
+  end
+
   local user = vim.env.USER
   if user and user == "abz" then
     M.set_wezterm_keybindings()

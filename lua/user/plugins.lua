@@ -38,6 +38,8 @@ M.config = function()
       config = function()
         require("user.symbols_outline").config()
       end,
+      event = "BufReadPost",
+      disable = lvim.builtin.tag_provider ~= "symbols-outline",
     }, {
       "tzachar/cmp-tabnine",
       run = "./install.sh",
@@ -52,12 +54,63 @@ M.config = function()
       end,
       opt = true,
       event = "InsertEnter",
+      disable = not lvim.builtin.tabnine.active,
     }, {
       "folke/twilight.nvim",
       config = function()
         require("user.twilight").config()
       end,
       event = "BufRead",
+    }, {
+      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      config = function()
+        require("lsp_lines").setup()
+      end,
+      event = "BufRead",
+      disable = not lvim.builtin.lsp_lines,
+    }, {
+      "folke/persistence.nvim",
+      event = "BufReadPre",
+      module = "persistence",
+      config = function()
+        require("persistence").setup {
+          dir = vim.fn.expand(get_cache_dir() .. "/sessions/"), -- directory where session files are saved
+          options = { "buffers", "curdir", "tabpages", "winsize" }, -- sessionoptions used for saving
+        }
+      end,
+      disable = not lvim.builtin.persistence.active,
+    }, {
+      "danymat/neogen",
+      config = function()
+        require("neogen").setup {
+          enabled = true,
+        }
+      end,
+      event = "InsertEnter",
+      requires = "nvim-treesitter/nvim-treesitter",
+    },
+    {
+      "zbirenbaum/copilot.lua",
+      after = "nvim-cmp",
+      requires = { "zbirenbaum/copilot-cmp" },
+      config = function()
+        local cmp_source = { name = "copilot", group_index = 2 }
+        table.insert(lvim.builtin.cmp.sources, cmp_source)
+        vim.defer_fn(function()
+          require("copilot").setup()
+        end, 100)
+      end,
+      disable = not lvim.builtin.sell_your_soul_to_devil.prada,
+    }, {
+      "sindrets/diffview.nvim",
+      opt = true,
+      cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+      module = "diffview",
+      keys = { "<leader>gd", "<leader>gh" },
+      config = function()
+        require("user.diffview").config()
+      end,
+      disable = not lvim.builtin.fancy_diff.active,
     },
   }
   -- não sei o poruqe, mas a função config do hop não funciona nem pelo satanás.

@@ -60,7 +60,7 @@ M.config = function()
     },
   }
 
-  symout.setup(opts)
+  symout.setup()
 end
 
 return M
