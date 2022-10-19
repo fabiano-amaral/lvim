@@ -152,7 +152,9 @@ M.config = function()
   -- -- Toggleterm
   -- -- =========================================
   lvim.builtin.terminal.active = true
-  lvim.builtin.terminal.execs = {}
+  lvim.builtin.terminal.execs = {
+    direction = "horizontal",
+  }
   lvim.builtin.terminal.autochdir = true
   -- lvim.builtin.terminal.open_mapping = nil
   lvim.builtin.terminal.size = vim.o.columns * 0.4
@@ -194,100 +196,100 @@ M.config = function()
   }
   lvim.builtin.treesitter.indent = { enable = true, disable = { "python" } } -- treesitter is buggy :(
   lvim.builtin.treesitter.matchup.enable = true
-  -- lvim.treesitter.textsubjects = {
-  --   enable = true
-  -- }
-  -- lvim.treesitter.playground.enable = true
-  -- lvim.builtin.treesitter.query_linter = {
-  --   enable = true,
-  --   use_virtual_text = true,
-  --   lint_events = { "BufWrite", "CursorHold" },
-  -- }
-  -- lvim.builtin.treesitter.textobjects = {
-  --   select = {
-  --     enable = true,
-  --     lookahead = true,
-  --     keymaps = {
-  --       -- You can use the capture groups defined in textobjects.scm
-  --       ["aA"] = "@attribute.outer",
-  --       ["iA"] = "@attribute.inner",
-  --       ["ab"] = "@block.outer",
-  --       ["ib"] = "@block.inner",
-  --       ["ac"] = "@call.outer",
-  --       ["ic"] = "@call.inner",
-  --       ["at"] = "@class.outer",
-  --       ["it"] = "@class.inner",
-  --       ["a/"] = "@comment.outer",
-  --       ["i/"] = "@comment.inner",
-  --       ["ai"] = "@conditional.outer",
-  --       ["ii"] = "@conditional.inner",
-  --       ["aF"] = "@frame.outer",
-  --       ["iF"] = "@frame.inner",
-  --       ["af"] = "@function.outer",
-  --       ["if"] = "@function.inner",
-  --       ["al"] = "@loop.outer",
-  --       ["il"] = "@loop.inner",
-  --       ["aa"] = "@parameter.outer",
-  --       ["ia"] = "@parameter.inner",
-  --       ["is"] = "@scopename.inner",
-  --       ["as"] = "@statement.outer",
-  --       ["av"] = "@variable.outer",
-  --       ["iv"] = "@variable.inner",
-  --     },
-  --   },
-  --   swap = {
-  --     enable = true,
-  --     swap_next = {
-  --       ["<leader><M-a>"] = "@parameter.inner",
-  --       ["<leader><M-f>"] = "@function.outer",
-  --       ["<leader><M-e>"] = "@element",
-  --     },
-  --     swap_previous = {
-  --       ["<leader><M-A>"] = "@parameter.inner",
-  --       ["<leader><M-F>"] = "@function.outer",
-  --       ["<leader><M-E>"] = "@element",
-  --     },
-  --   },
-  --   move = {
-  --     enable = true,
-  --     set_jumps = true, -- whether to set jumps in the jumplist
-  --     goto_next_start = {
-  --       ["]p"] = "@parameter.inner",
-  --       ["]f"] = "@function.outer",
-  --       ["]]"] = "@class.outer",
-  --     },
-  --     goto_next_end = {
-  --       ["]F"] = "@function.outer",
-  --       ["]["] = "@class.outer",
-  --     },
-  --     goto_previous_start = {
-  --       ["[p"] = "@parameter.inner",
-  --       ["[f"] = "@function.outer",
-  --       ["[["] = "@class.outer",
-  --     },
-  --     goto_previous_end = {
-  --       ["[F"] = "@function.outer",
-  --       ["[]"] = "@class.outer",
-  --     },
-  --   },
-  -- }
+  lvim.builtin.treesitter.textsubjects = {
+    enable = true
+  }
+  lvim.builtin.treesitter.playground.enable = true
+  lvim.builtin.treesitter.query_linter = {
+    enable = true,
+    use_virtual_text = true,
+    lint_events = { "BufWrite", "CursorHold" },
+  }
+  lvim.builtin.treesitter.textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["aA"] = "@attribute.outer",
+        ["iA"] = "@attribute.inner",
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
+        ["ac"] = "@call.outer",
+        ["ic"] = "@call.inner",
+        ["at"] = "@class.outer",
+        ["it"] = "@class.inner",
+        ["a/"] = "@comment.outer",
+        ["i/"] = "@comment.inner",
+        ["ai"] = "@conditional.outer",
+        ["ii"] = "@conditional.inner",
+        ["aF"] = "@frame.outer",
+        ["iF"] = "@frame.inner",
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["al"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner",
+        ["is"] = "@scopename.inner",
+        ["as"] = "@statement.outer",
+        ["av"] = "@variable.outer",
+        ["iv"] = "@variable.inner",
+      },
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ["<leader><M-a>"] = "@parameter.inner",
+        ["<leader><M-f>"] = "@function.outer",
+        ["<leader><M-e>"] = "@element",
+      },
+      swap_previous = {
+        ["<leader><M-A>"] = "@parameter.inner",
+        ["<leader><M-F>"] = "@function.outer",
+        ["<leader><M-E>"] = "@element",
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["]p"] = "@parameter.inner",
+        ["]f"] = "@function.outer",
+        ["]]"] = "@class.outer",
+      },
+      goto_next_end = {
+        ["]F"] = "@function.outer",
+        ["]["] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[p"] = "@parameter.inner",
+        ["[f"] = "@function.outer",
+        ["[["] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[F"] = "@function.outer",
+        ["[]"] = "@class.outer",
+      },
+    },
+  }
 
-  -- -- WhichKey
-  -- -- =========================================
-  -- lvim.builtin.which_key.setup.window.winblend = 10
-  -- lvim.builtin.which_key.setup.window.border = "none"
-  -- lvim.builtin.which_key.setup.plugins.presets.z = true
-  -- lvim.builtin.which_key.setup.plugins.presets.g = true
-  -- lvim.builtin.which_key.setup.plugins.presets.windows = true
-  -- lvim.builtin.which_key.setup.plugins.presets.nav = true
-  -- lvim.builtin.which_key.setup.plugins.marks = true
-  -- lvim.builtin.which_key.setup.plugins.registers = true
-  -- lvim.builtin.which_key.setup.icons = {
-  --   breadcrumb = "/", -- symbol used in the command line area that shows your active key combo
-  --   separator = "·", -- symbol used between a key and it's label
-  --   group = "", -- symbol prepended to a group
-  -- }
-  -- lvim.builtin.which_key.setup.ignore_missing = true
+  -- WhichKey
+  -- =========================================
+  lvim.builtin.which_key.setup.window.winblend = 10
+  lvim.builtin.which_key.setup.window.border = "none"
+  lvim.builtin.which_key.setup.plugins.presets.z = true
+  lvim.builtin.which_key.setup.plugins.presets.g = true
+  lvim.builtin.which_key.setup.plugins.presets.windows = true
+  lvim.builtin.which_key.setup.plugins.presets.nav = true
+  lvim.builtin.which_key.setup.plugins.marks = true
+  lvim.builtin.which_key.setup.plugins.registers = true
+  lvim.builtin.which_key.setup.icons = {
+    breadcrumb = "/", -- symbol used in the command line area that shows your active key combo
+    separator = "·", -- symbol used between a key and it's label
+    group = "", -- symbol prepended to a group
+  }
+  lvim.builtin.which_key.setup.ignore_missing = true
 
   -- -- Telescope
   -- -- =========================================
@@ -417,6 +419,10 @@ M.config = function()
   --     telescope.load_extension "file_browser"
   --   end
   -- end
+
+  lvim.builtin.terminal.execs = {
+    { "lazygit", "<leader>gg", "LazyGit", "horizontal" },
+  }
 end
 
 --- Create a new toggleterm

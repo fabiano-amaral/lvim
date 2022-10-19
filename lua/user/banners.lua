@@ -1068,7 +1068,7 @@ M.dashboard = function()
       "",
     },
   }
-  return headers[math.random(1, #headers)]
+  return headers[math.random(2, #headers)]
 end
 
 return M

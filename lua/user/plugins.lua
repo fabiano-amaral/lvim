@@ -69,17 +69,6 @@ M.config = function()
       event = "BufRead",
       disable = not lvim.builtin.lsp_lines,
     }, {
-      "folke/persistence.nvim",
-      event = "BufReadPre",
-      module = "persistence",
-      config = function()
-        require("persistence").setup {
-          dir = vim.fn.expand(get_cache_dir() .. "/sessions/"), -- directory where session files are saved
-          options = { "buffers", "curdir", "tabpages", "winsize" }, -- sessionoptions used for saving
-        }
-      end,
-      disable = not lvim.builtin.persistence.active,
-    }, {
       "danymat/neogen",
       config = function()
         require("neogen").setup {
@@ -117,7 +106,18 @@ M.config = function()
       "editorconfig/editorconfig-vim",
       event = "BufRead",
       disable = not lvim.builtin.editorconfig.active,
-    },
+    }, {
+      "folke/noice.nvim",
+      event = "VimEnter",
+      config = function()
+        require("user.noice").config()
+      end,
+      requires = {
+        "MunifTanjim/nui.nvim",
+        "rcarriga/nvim-notify",
+      },
+      disable = not lvim.builtin.noice.active,
+    }
   }
   -- não sei o poruqe, mas a função config do hop não funciona nem pelo satanás.
   require("hop").setup { keys = 'etovxqpdygfblzhckisuran' }
