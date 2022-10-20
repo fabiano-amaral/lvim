@@ -19,7 +19,7 @@ require("user.neovim").config()
 
 lvim.lsp.installer.setup.automatic_installation = true
 lvim.lsp.code_lens_refresh = false
-lvim.builtin.sell_your_soul_to_devil = { active = true, prada = true } -- if you want microsoft to abuse your soul
+lvim.builtin.sell_your_soul_to_devil = { active = false, prada = false } -- if you want microsoft to abuse your soul
 lvim.builtin.tabnine = { active = true } -- change to false if you don't like tabnine
 lvim.builtin.fancy_wild_menu = { active = true } -- enable/disable cmp-cmdline
 lvim.builtin.fancy_diff = { active = false }
@@ -31,7 +31,7 @@ lvim.builtin.indentlines = {
 lvim.builtin.noice = { active = true }
 require("user.builtin").config()
 lvim.builtin.alpha.active = true
-lvim.builtin.alpha.mode = "dashboard"
+lvim.builtin.alpha.mode = "custom"
 lvim.builtin.notify.active = true
 lvim.builtin.noice = { active = false }
 lvim.builtin.tag_provider = "symbols-outline" -- change this to use different tag providers ( symbols-outline or vista )
