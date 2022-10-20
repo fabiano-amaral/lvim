@@ -166,7 +166,7 @@ M.config = function()
   -- Treesitter
   -- =========================================
   lvim.builtin.treesitter.context_commentstring.enable = true
-  local languages = vim.tbl_flatten {
+  lvim.builtin.treesitter.ensure_installed = {
     "bash",
     "javascript",
     "json",
@@ -179,19 +179,18 @@ M.config = function()
     "comment",
     "go",
     "gomod",
-    "vim"
+    "vim",
   }
-  lvim.builtin.treesitter.ensure_installed = languages
   lvim.builtin.treesitter.highlight.disable = { "org" }
   lvim.builtin.treesitter.highlight.aditional_vim_regex_highlighting = { "org" }
   lvim.builtin.treesitter.ignore_install = { "haskell", "norg" }
   lvim.builtin.treesitter.incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "<C-n>",
-      node_incremental = "<C-n>",
-      scope_incremental = "<C-s>",
-      node_decremental = "<C-r>",
+      init_selection = "<CR>",
+      scope_incremental = "<CR>",
+      node_incremental = "<TAB>",
+      node_decremental = "<S-TAB>",
     },
   }
   lvim.builtin.treesitter.indent = { enable = true, disable = { "python" } } -- treesitter is buggy :(
@@ -291,134 +290,147 @@ M.config = function()
   }
   lvim.builtin.which_key.setup.ignore_missing = true
 
-  -- -- Telescope
-  -- -- =========================================
-  -- -- lvim.builtin.telescope.defaults.path_display = { "smart", "absolute", "truncate" }
-  -- lvim.builtin.telescope.defaults.dynamic_preview_title = true
-  -- lvim.builtin.telescope.defaults.path_display = { shorten = 10 }
-  -- lvim.builtin.telescope.defaults.prompt_prefix = "xxxx  "
-  -- lvim.builtin.telescope.defaults.borderchars = {
-  --   prompt = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-  --   results = { "─", "▐", "─", "│", "╭", "▐", "▐", "╰" },
-  --   -- results = {' ', '▐', '▄', '▌', '▌', '▐', '▟', '▙' };
-  --   preview = { " ", "│", " ", "▌", "▌", "╮", "╯", "▌" },
-  -- }
-  -- lvim.builtin.telescope.defaults.selection_caret = "  "
-  -- lvim.builtin.telescope.defaults.cache_picker = { num_pickers = 3 }
-  -- lvim.builtin.telescope.defaults.layout_strategy = "horizontal"
-  -- lvim.builtin.telescope.defaults.file_ignore_patterns = {
-  --   "vendor/*",
-  --   "%.lock",
-  --   "__pycache__/*",
-  --   "%.sqlite3",
-  --   "%.ipynb",
-  --   "node_modules/*",
-  --   "%.jpg",
-  --   "%.jpeg",
-  --   "%.png",
-  --   "%.svg",
-  --   "%.otf",
-  --   "%.ttf",
-  --   ".git/",
-  --   "%.webp",
-  --   ".dart_tool/",
-  --   ".github/",
-  --   ".gradle/",
-  --   ".idea/",
-  --   ".settings/",
-  --   ".vscode/",
-  --   "__pycache__/",
-  --   "build/",
-  --   "env/",
-  --   "gradle/",
-  --   "node_modules/",
-  --   "target/",
-  --   "%.pdb",
-  --   "%.dll",
-  --   "%.class",
-  --   "%.exe",
-  --   "%.cache",
-  --   "%.ico",
-  --   "%.pdf",
-  --   "%.dylib",
-  --   "%.jar",
-  --   "%.docx",
-  --   "%.met",
-  --   "smalljre_*/*",
-  --   ".vale/",
-  --   "%.burp",
-  --   "%.mp4",
-  --   "%.mkv",
-  --   "%.rar",
-  --   "%.zip",
-  --   "%.7z",
-  --   "%.tar",
-  --   "%.bz2",
-  --   "%.epub",
-  --   "%.flac",
-  --   "%.tar.gz",
-  -- }
-  -- local user_telescope = require "user.telescope"
-  -- lvim.builtin.telescope.defaults.layout_config = user_telescope.layout_config()
-  -- local actions = require "telescope.actions"
-  -- lvim.builtin.telescope.defaults.mappings = {
-  --   i = {
-  --     ["<c-c>"] = require("telescope.actions").close,
-  --     ["<c-y>"] = require("telescope.actions").which_key,
-  --     ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
-  --     ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
-  --     ["<cr>"] = user_telescope.multi_selection_open,
-  --     ["<c-v>"] = user_telescope.multi_selection_open_vsplit,
-  --     ["<c-s>"] = user_telescope.multi_selection_open_split,
-  --     ["<c-t>"] = user_telescope.multi_selection_open_tab,
-  --     ["<c-j>"] = actions.move_selection_next,
-  --     ["<c-k>"] = actions.move_selection_previous,
-  --     ["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-  --   },
-  --   n = {
-  --     ["<esc>"] = actions.close,
-  --     ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
-  --     ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
-  --     ["<cr>"] = user_telescope.multi_selection_open,
-  --     ["<c-v>"] = user_telescope.multi_selection_open_vsplit,
-  --     ["<c-s>"] = user_telescope.multi_selection_open_split,
-  --     ["<c-t>"] = user_telescope.multi_selection_open_tab,
-  --     ["<c-j>"] = actions.move_selection_next,
-  --     ["<c-k>"] = actions.move_selection_previous,
-  --     ["<c-n>"] = actions.cycle_history_next,
-  --     ["<c-p>"] = actions.cycle_history_prev,
-  --     ["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-  --     ["dd"] = require("telescope.actions").delete_buffer,
-  --   },
-  -- }
-  -- local telescope_actions = require "telescope.actions.set"
-  -- lvim.builtin.telescope.pickers.git_files = {
-  --   hidden = true,
-  --   show_untracked = true,
-  --   layout_strategy = "horizontal",
-  -- }
-  -- lvim.builtin.telescope.pickers.live_grep = {
-  --   only_sort_text = true,
-  --   layout_strategy = "horizontal",
-  -- }
-  -- lvim.builtin.telescope.pickers.find_files = {
-  --   layout_strategy = "horizontal",
-  --   attach_mappings = function(_)
-  --     telescope_actions.select:enhance {
-  --       post = function()
-  --         vim.cmd ":normal! zx"
-  --       end,
-  --     }
-  --     return true
-  --   end,
-  --   find_command = { "fd", "--type=file", "--hidden" },
-  -- }
+  -- Telescope
+  -- =========================================
+  -- lvim.builtin.telescope.defaults.path_display = { "smart", "absolute", "truncate" }
+  lvim.builtin.telescope.defaults.dynamic_preview_title = true
+  lvim.builtin.telescope.defaults.path_display = { shorten = 10 }
+  lvim.builtin.telescope.defaults.prompt_prefix = "  "
+  lvim.builtin.telescope.defaults.borderchars = {
+    prompt = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    results = { "─", "▐", "─", "│", "╭", "▐", "▐", "╰" },
+    -- results = {' ', '▐', '▄', '▌', '▌', '▐', '▟', '▙' };
+    preview = { " ", "│", " ", "▌", "▌", "╮", "╯", "▌" },
+  }
+  lvim.builtin.telescope.defaults.selection_caret = "  "
+  lvim.builtin.telescope.defaults.cache_picker = { num_pickers = 3 }
+  lvim.builtin.telescope.defaults.layout_strategy = "horizontal"
+  lvim.builtin.telescope.defaults.file_ignore_patterns = {
+    "vendor/*",
+    "%.lock",
+    "__pycache__/*",
+    "%.sqlite3",
+    "%.ipynb",
+    "node_modules/*",
+    "%.jpg",
+    "%.jpeg",
+    "%.png",
+    "%.svg",
+    "%.otf",
+    "%.ttf",
+    ".git/",
+    "%.webp",
+    ".dart_tool/",
+    ".github/",
+    ".gradle/",
+    ".idea/",
+    ".settings/",
+    ".vscode/",
+    "__pycache__/",
+    "build/",
+    "env/",
+    "gradle/",
+    "node_modules/",
+    "target/",
+    "%.pdb",
+    "%.dll",
+    "%.class",
+    "%.exe",
+    "%.cache",
+    "%.ico",
+    "%.pdf",
+    "%.dylib",
+    "%.jar",
+    "%.docx",
+    "%.met",
+    "smalljre_*/*",
+    ".vale/",
+    "%.burp",
+    "%.mp4",
+    "%.mkv",
+    "%.rar",
+    "%.zip",
+    "%.7z",
+    "%.tar",
+    "%.bz2",
+    "%.epub",
+    "%.flac",
+    "%.tar.gz",
+  }
+  local user_telescope = require "user.telescope"
+  lvim.builtin.telescope.defaults.layout_config = user_telescope.layout_config()
+  local actions = require "telescope.actions"
+  lvim.builtin.telescope.defaults.mappings = {
+    i = {
+      ["<c-c>"] = require("telescope.actions").close,
+      ["<c-y>"] = require("telescope.actions").which_key,
+      ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+      ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
+      ["<cr>"] = user_telescope.multi_selection_open,
+      ["<c-v>"] = user_telescope.multi_selection_open_vsplit,
+      ["<c-s>"] = user_telescope.multi_selection_open_split,
+      ["<c-t>"] = user_telescope.multi_selection_open_tab,
+      ["<c-j>"] = actions.move_selection_next,
+      ["<c-k>"] = actions.move_selection_previous,
+      ["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+    },
+    n = {
+      ["<esc>"] = actions.close,
+      ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+      ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
+      ["<cr>"] = user_telescope.multi_selection_open,
+      ["<c-v>"] = user_telescope.multi_selection_open_vsplit,
+      ["<c-s>"] = user_telescope.multi_selection_open_split,
+      ["<c-t>"] = user_telescope.multi_selection_open_tab,
+      ["<c-j>"] = actions.move_selection_next,
+      ["<c-k>"] = actions.move_selection_previous,
+      ["<c-n>"] = actions.cycle_history_next,
+      ["<c-p>"] = actions.cycle_history_prev,
+      ["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+      ["dd"] = require("telescope.actions").delete_buffer,
+    },
+  }
+  local telescope_actions = require "telescope.actions.set"
+  lvim.builtin.telescope.pickers.git_files = {
+    hidden = true,
+    show_untracked = true,
+    layout_strategy = "horizontal",
+  }
+  lvim.builtin.telescope.pickers.live_grep = {
+    only_sort_text = true,
+    layout_strategy = "horizontal",
+  }
+  lvim.builtin.telescope.pickers.find_files = {
+    layout_strategy = "horizontal",
+    attach_mappings = function(_)
+      telescope_actions.select:enhance {
+        post = function()
+          vim.cmd ":normal! zx"
+        end,
+      }
+      return true
+    end,
+    find_command = { "fd", "--type=file", "--hidden" },
+  }
+
   -- lvim.builtin.telescope.on_config_done = function(telescope)
   --   telescope.load_extension "file_create"
   --   if lvim.builtin.file_browser.active then
   --     telescope.load_extension "file_browser"
   --   end
   -- end
+
+  local default_exe_handler = vim.lsp.handlers["workspace/executeCommand"]
+  vim.lsp.handlers["workspace/executeCommand"] = function(err, result, ctx, config)
+    -- supress NULL_LS error msg
+    if err and vim.startswith(err.message, "NULL_LS") then
+      return
+    end
+    return default_exe_handler(err, result, ctx, config)
+  end
+  if not lvim.use_icons and lvim.builtin.custom_web_devicons then
+    require("user.dev_icons").use_my_icons()
+  end
 
   lvim.builtin.terminal.execs = {
     { "lazygit", "<leader>gg", "LazyGit", "horizontal" },
