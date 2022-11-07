@@ -27,7 +27,7 @@ lvim.builtin.fancy_diff = { active = false }
 lvim.builtin.indentlines = {
   active = true
 }
-
+lvim.builtin.sql_integration = { active = false } -- use sql integration
 lvim.builtin.noice = { active = false }
 require("user.builtin").config()
 lvim.builtin.alpha.active = true
@@ -35,7 +35,11 @@ lvim.builtin.alpha.mode = "custom"
 lvim.builtin.noice = { active = false }
 lvim.builtin.tag_provider = "symbols-outline" -- change this to use different tag providers ( symbols-outline or vista )
 lvim.builtin.lsp_lines = false -- enable/disable lsp_lines to display lsp virtual text below instead of behind
-
+lvim.builtin.metals = {
+  active = false, -- enable/disable nvim-metals for scala development
+  fallbackScalaVersion = "3.2.0-RC3",
+  serverVersion = "0.11.8",
+}
 if lvim.builtin.lsp_lines then
   lvim.lsp.diagnostics.virtual_text = false
 end
@@ -48,6 +52,11 @@ lvim.builtin.test_runner = { active = false, runner = "ultest" } -- change this 
 
 -- some coment
 require("user.plugins").config()
+
+-- Autocommands
+-- =========================================
+require("user.autocommands").config()
+
 require("user.keybindings").config()
 lvim.keys.normal_mode["m"] = {
   "<cmd>lua require'hop'.hint_lines_skip_whitespace()<cr>",
