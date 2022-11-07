@@ -23,32 +23,57 @@ lvim.builtin.sell_your_soul_to_devil = { active = false, prada = false } -- if y
 lvim.builtin.tabnine = { active = true } -- change to false if you don't like tabnine
 lvim.builtin.fancy_wild_menu = { active = true } -- enable/disable cmp-cmdline
 lvim.builtin.fancy_diff = { active = false }
-
-lvim.builtin.indentlines = {
-  active = true
-}
+lvim.builtin.fancy_statusline = { active = true } -- enable/disable fancy statusline
+lvim.builtin.harpoon = { active = false } -- use the harpoon plugin
 lvim.builtin.sql_integration = { active = false } -- use sql integration
 lvim.builtin.noice = { active = false }
-require("user.builtin").config()
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "custom"
-lvim.builtin.noice = { active = false }
 lvim.builtin.tag_provider = "symbols-outline" -- change this to use different tag providers ( symbols-outline or vista )
 lvim.builtin.lsp_lines = false -- enable/disable lsp_lines to display lsp virtual text below instead of behind
-lvim.builtin.metals = {
-  active = false, -- enable/disable nvim-metals for scala development
-  fallbackScalaVersion = "3.2.0-RC3",
-  serverVersion = "0.11.8",
-}
-if lvim.builtin.lsp_lines then
-  lvim.lsp.diagnostics.virtual_text = false
-end
-
+lvim.builtin.refactoring = { active = false } -- enable to use refactoring.nvim code_actions
+lvim.builtin.indentlines = { active = true }
 lvim.builtin.cheat = { active = false }
 lvim.builtin.legendary = { active = false }
 lvim.builtin.file_browser = { active = false } -- enable/disable telescope file browser
 lvim.builtin.editorconfig = { active = true } -- enable/disable editorconfig
 lvim.builtin.test_runner = { active = false, runner = "ultest" } -- change this to enable/disable ultest or neotest
+
+lvim.builtin.metals = {
+  active = false, -- enable/disable nvim-metals for scala development
+  fallbackScalaVersion = "3.2.0-RC3",
+  serverVersion = "0.11.8",
+}
+
+if lvim.builtin.lsp_lines then
+  lvim.lsp.diagnostics.virtual_text = false
+end
+
+-- Override Lunarvim defaults
+-- =========================================
+require("user.builtin").config()
+
+-- StatusLine
+-- =========================================
+if lvim.builtin.fancy_statusline.active then
+  require("user.lualine").config()
+end
+
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
+  "clangd",
+  "dockerls",
+  "gopls",
+  "golangci_lint_ls",
+  "jdtls",
+  "pyright",
+  "rust_analyzer",
+  "taplo",
+  "texlab",
+  "tsserver",
+  "yamlls",
+})
+require("user.null_ls").config()
+
 
 -- some coment
 require("user.plugins").config()
@@ -58,6 +83,7 @@ require("user.plugins").config()
 require("user.autocommands").config()
 
 require("user.keybindings").config()
+
 lvim.keys.normal_mode["m"] = {
   "<cmd>lua require'hop'.hint_lines_skip_whitespace()<cr>",
   { noremap = true, silent = true, nowait = true },

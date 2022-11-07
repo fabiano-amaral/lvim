@@ -4,6 +4,26 @@ M.config = function()
   lvim.plugins = {
     { "sainnhe/gruvbox-material" },
     {
+      "ThePrimeagen/harpoon",
+      requires = {
+        { "nvim-lua/plenary.nvim" },
+        { "nvim-lua/popup.nvim" },
+      },
+      disable = not lvim.builtin.harpoon.active,
+    },
+    {
+      "folke/noice.nvim",
+      event = "VimEnter",
+      config = function()
+        require("user.noice").config()
+      end,
+      requires = {
+        "MunifTanjim/nui.nvim",
+        "rcarriga/nvim-notify",
+      },
+      disable = not lvim.builtin.noice.active,
+    },
+    {
       "ray-x/lsp_signature.nvim",
       config = function()
         require("user/lsp_signature").config()
@@ -111,6 +131,9 @@ M.config = function()
   -- não sei o poruqe, mas a função config do hop não funciona nem pelo satanás.
   require("hop").setup { keys = 'etovxqpdygfblzhckisuran' }
   require("user.hop").config()
+  require("neogen").setup {
+    enabled = true,
+  }
 end
 
 return M
