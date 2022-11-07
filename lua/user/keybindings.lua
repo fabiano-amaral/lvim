@@ -14,11 +14,16 @@ end
 
 M.set_hop_keymaps = function()
   local opts = { noremap = true, silent = true }
+
+  -- buffer swap
+  vim.api.nvim_set_keymap("n", "<s-h>", ":BufferLineCyclePrev<cr>", opts)
+  vim.api.nvim_set_keymap("n", "<s-l>", ":BufferLineCycleNext<cr>", opts)
+
+  vim.api.nvim_set_keymap("n", "<s-tab>", ":BufferLineCyclePrev<cr>", opts)
+  vim.api.nvim_set_keymap("n", "<tab>", ":BufferLineCycleNext<cr>", opts)
+
   vim.api.nvim_set_keymap("n", "s", ":HopChar2MW<cr>", opts)
   vim.api.nvim_set_keymap("n", "S", ":HopWordMW<cr>", opts)
-  vim.api.nvim_set_keymap('', 'm',
-    "<cmd>lua require'hop'.hint_lines_skip_whitespace()<cr>"
-    , {})
   vim.api.nvim_set_keymap('', 'w',
     "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>"
     , {})

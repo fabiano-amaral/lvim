@@ -649,6 +649,89 @@ M.lsp_on_attach_callback = function(client, _)
     end
   end
   which_key.register(mappings, opts)
+
+  -- LSP
+  -- =========================================
+  if lvim.builtin.go_programming.active then
+    require("lvim.lsp.manager").setup("golangci_lint_ls", {
+      on_init = require("lvim.lsp").common_on_init,
+      capabilities = require("lvim.lsp").common_capabilities(),
+    })
+  end
+
+  lvim.lsp.buffer_mappings.normal_mode["ga"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" }
+  lvim.lsp.buffer_mappings.normal_mode["gI"] = {
+    "<cmd>lua require('user.telescope').lsp_implementations()<CR>",
+    "Goto Implementation",
+  }
+  lvim.lsp.buffer_mappings.normal_mode["gA"] = {
+    "<cmd>lua if vim.bo.filetype == 'rust' then vim.cmd[[RustHoverActions]] else vim.lsp.codelens.run() end<CR>",
+    "CodeLens Action",
+  }
+  lvim.lsp.buffer_mappings.normal_mode["gt"] = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Goto Type Definition" }
+  lvim.lsp.buffer_mappings.normal_mode["gp"] = {
+    function()
+      require("user.peek").Peek "definition"
+    end,
+    "Peek definition",
+  }
+  lvim.lsp.buffer_mappings.normal_mode["K"] = {
+    "<cmd>lua require('user.builtin').show_documentation()<CR>",
+    "Show Documentation",
+  }
+  lvim.lsp.float.border = {
+    { "╔", "FloatBorder" },
+    { "═", "FloatBorder" },
+    { "╗", "FloatBorder" },
+    { "║", "FloatBorder" },
+    { "╝", "FloatBorder" },
+    { "═", "FloatBorder" },
+    { "╚", "FloatBorder" },
+    { "║", "FloatBorder" },
+  }
+  lvim.lsp.diagnostics.float.border = {
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+  }
+  if vim.env.KITTY_WINDOW_ID then
+    lvim.lsp.float.border = {
+      { "🭽", "FloatBorder" },
+      { "▔", "FloatBorder" },
+      { "🭾", "FloatBorder" },
+      { "▕", "FloatBorder" },
+      { "🭿", "FloatBorder" },
+      { "▁", "FloatBorder" },
+      { "🭼", "FloatBorder" },
+      { "▏", "FloatBorder" },
+    }
+    lvim.lsp.diagnostics.float.border = lvim.lsp.float.border
+  end
+  lvim.lsp.diagnostics.float.focusable = false
+  lvim.lsp.float.focusable = true
+  lvim.lsp.diagnostics.signs.values = {
+    { name = "DiagnosticSignError", text = kind.icons.error },
+    { name = "DiagnosticSignWarn", text = kind.icons.warn },
+    { name = "DiagnosticSignInfo", text = kind.icons.info },
+    { name = "DiagnosticSignHint", text = kind.icons.hint },
+  }
+  lvim.lsp.diagnostics.float.source = "if_many"
+  lvim.lsp.diagnostics.float.format = function(d)
+    local t = vim.deepcopy(d)
+    local code = d.code or (d.user_data and d.user_data.lsp.code)
+    for _, table in pairs(M.codes) do
+      if vim.tbl_contains(table, code) then
+        return table.message
+      end
+    end
+    return t.message
+  end
+  lvim.lsp.on_attach_callback = M.lsp_on_attach_callback
 end
 
 
