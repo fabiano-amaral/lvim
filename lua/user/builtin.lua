@@ -11,23 +11,24 @@ M.config = function()
   -- CMP
   lvim.builtin.cmp.sources = {
     { name = "nvim_lsp" },
-    { name = "cmp_tabnine", max_item_count = 3 },
+    { name = "cmp_tabnine", max_item_count = 5 },
     { name = "buffer", max_item_count = 5, keyword_length = 5 },
-    { name = "path", max_item_count = 5 },
-    { name = "luasnip", max_item_count = 3 },
-    { name = "nvim_lua" },
-    { name = "calc" },
-    { name = "emoji" },
-    { name = "treesitter" },
-    { name = "latex_symbols" },
-    { name = "crates" },
-    { name = "orgmode" },
+    -- { name = "treesitter" },
+    -- { name = "luasnip", max_item_count = 3 },
+    -- { name = "path", max_item_count = 5 },
+    -- { name = "nvim_lua" },
+    -- { name = "calc" },
+    -- { name = "emoji" },
+    -- { name = "latex_symbols" },
+    -- { name = "crates" },
+    -- { name = "orgmode" },
   }
   lvim.builtin.cmp.experimental = {
     ghost_text = false,
     native_menu = false,
     custom_menu = true,
   }
+  -- lvim.builtin.cmp.view.entries = "native"
   local cmp_sources = {
     ["vim-dadbod-completion"] = "(DadBod)",
     buffer = "(Buffer)",
@@ -51,11 +52,8 @@ M.config = function()
   }
   local cmp_ok, cmp = pcall(require, "cmp")
   if not cmp_ok or cmp == nil then
-    cmp = {
-      mapping = function(...) end,
-      setup = { filetype = function(...) end, cmdline = function(...) end },
-      config = { sources = function(...) end },
-    }
+    print("CMP não instalado")
+    return
   end
   if lvim.builtin.fancy_wild_menu.active then
     local cmdline_opts = {
@@ -93,15 +91,7 @@ M.config = function()
       { name = "buffer", max_item_count = 5, keyword_length = 5 },
     }),
   })
-  cmp.setup.filetype("tex", {
-    sources = cmp.config.sources({
-      { name = "latex_symbols", max_item_count = 3, keyword_length = 3 },
-      { name = "nvim_lsp", max_item_count = 8 },
-      { name = "luasnip", max_item_count = 5 },
-    }, {
-      { name = "buffer", max_item_count = 5, keyword_length = 5 },
-    }),
-  })
+
   if lvim.builtin.sell_your_soul_to_devil.active then
     local function t(str)
       return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -144,7 +134,7 @@ M.config = function()
   }
 
   lvim.builtin.nvimtree.setup.view.side = "left"
-  lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+  lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
   lvim.builtin.nvimtree.on_config_done = function(_)
     lvim.builtin.which_key.mappings["e"] = { "<cmd>NvimTreeToggle<CR>", " Explorer" }
   end
@@ -153,14 +143,14 @@ M.config = function()
   -- -- =========================================
   lvim.builtin.terminal.active = true
   lvim.builtin.terminal.execs = {
-    direction = "horizontal",
+    direction = "vertical",
   }
   lvim.builtin.terminal.autochdir = true
   -- lvim.builtin.terminal.open_mapping = nil
   lvim.builtin.terminal.size = vim.o.columns * 0.4
   lvim.builtin.terminal.on_config_done = function()
-    M.create_terminal(2, "<c-\\>", 20, "float")
-    M.create_terminal(3, "<A-0>", vim.o.columns * 0.4, "vertical")
+    M.create_terminal(2, "<c-t>", 20, "float")
+    M.create_terminal(3, "<c-\\>", vim.o.columns * 0.4, "tab")
   end
 
   -- Treesitter
