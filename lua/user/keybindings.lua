@@ -22,13 +22,21 @@ M.set_hop_keymaps = function()
   vim.api.nvim_set_keymap("n", "<s-tab>", ":BufferLineCyclePrev<cr>", opts)
   vim.api.nvim_set_keymap("n", "<tab>", ":BufferLineCycleNext<cr>", opts)
 
-  vim.api.nvim_set_keymap("n", "s", ":HopChar2MW<cr>", opts)
-  vim.api.nvim_set_keymap("n", "S", ":HopWordMW<cr>", opts)
-  vim.api.nvim_set_keymap('', 'w',
+  -- vim.api.nvim_set_keymap("n", "s", ":HopChar2MW<cr>", opts)
+  -- vim.api.nvim_set_keymap("n", "S", ":HopWordMW<cr>", opts)
+  --
+  vim.api.nvim_set_keymap('', 'W',
     "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>"
     , {})
-  vim.api.nvim_set_keymap('', 'b',
+  vim.api.nvim_set_keymap('', 'B',
     "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>"
+    , {})
+
+  vim.api.nvim_set_keymap('', 'w',
+    "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
+    , {})
+  vim.api.nvim_set_keymap('', 'b',
+    "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
     , {})
   vim.api.nvim_set_keymap(
     "n",
@@ -134,13 +142,13 @@ local function set_harpoon_keymaps()
   }
 end
 
-
 M.config = function()
   lvim.keys.normal_mode["<CR>"] = {
     "<cmd>lua require('user.neovim').maximize_current_split()<CR>",
     { noremap = true, silent = true, nowait = true },
   }
   lvim.keys.insert_mode["<A-a>"] = "<ESC>ggVG<CR>"
+  lvim.keys.insert_mode["kj"] = "<ESC>"
 
   if lvim.builtin.tag_provider == "symbols-outline" then
     lvim.builtin.which_key.mappings["o"] = { "<cmd>SymbolsOutline<cr>", " Symbol Outline" }

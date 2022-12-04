@@ -5,7 +5,7 @@ M.config = function()
   if not status_ok then
     return
   end
-  hop.setup()
+  hop.setup({ keys = 'etovxqpdygfblzhckisuran' })
   require("user.keybindings").set_hop_keymaps()
 end
 

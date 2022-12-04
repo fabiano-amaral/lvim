@@ -40,7 +40,7 @@ function! DisableSyntaxTreesitter()
         exec 'TSBufDisable highlight'
     endif
 
-    set foldmethod=manual
+    set foldmethod=syntax
     syntax clear
     syntax off
     filetype off

@@ -2,6 +2,11 @@ local M = {}
 
 M.config = function()
   lvim.plugins = {
+    { "leoluz/nvim-dap-go" },
+    { "folke/zen-mode.nvim" },
+    { "eddyekofo94/gruvbox-flat.nvim" },
+    { 'cljoly/telescope-repo.nvim' },
+    { "luisiacc/gruvbox-baby" },
     { "sainnhe/gruvbox-material" },
     {
       "ThePrimeagen/harpoon",
@@ -129,7 +134,7 @@ M.config = function()
     },
   }
   -- não sei o poruqe, mas a função config do hop não funciona nem pelo satanás.
-  require("hop").setup { keys = 'etovxqpdygfblzhckisuran' }
+  require('dap-go').setup()
   require("user.hop").config()
   require("neogen").setup {
     enabled = true,
