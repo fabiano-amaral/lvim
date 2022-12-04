@@ -171,8 +171,18 @@ M.config = function()
     "gomod",
     "vim",
   }
-  lvim.builtin.treesitter.highlight.disable = { "org" }
-  lvim.builtin.treesitter.highlight.aditional_vim_regex_highlighting = { "org" }
+  lvim.builtin.treesitter.sync_install = true
+  lvim.builtin.treesitter.highlight = {
+    enable = true,
+    aditional_vim_regex_highlighting = { "org" },
+    disable = function(_, buf)
+      local max_filesize = 100 * 1024 -- 100 KB
+      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
+    end,
+  }
   lvim.builtin.treesitter.ignore_install = { "haskell", "norg" }
   lvim.builtin.treesitter.incremental_selection = {
     enable = true,
@@ -181,6 +191,7 @@ M.config = function()
       scope_incremental = "<CR>",
       node_incremental = "<TAB>",
       node_decremental = "<S-TAB>",
+
     },
   }
   lvim.builtin.treesitter.indent = { enable = true, disable = { "python" } } -- treesitter is buggy :(
@@ -265,20 +276,30 @@ M.config = function()
 
   -- WhichKey
   -- =========================================
-  lvim.builtin.which_key.setup.window.winblend = 10
-  lvim.builtin.which_key.setup.window.border = "none"
-  lvim.builtin.which_key.setup.plugins.presets.z = true
-  lvim.builtin.which_key.setup.plugins.presets.g = true
-  lvim.builtin.which_key.setup.plugins.presets.windows = true
-  lvim.builtin.which_key.setup.plugins.presets.nav = true
-  lvim.builtin.which_key.setup.plugins.marks = true
-  lvim.builtin.which_key.setup.plugins.registers = true
-  lvim.builtin.which_key.setup.icons = {
-    breadcrumb = "/", -- symbol used in the command line area that shows your active key combo
-    separator = "·", -- symbol used between a key and it's label
-    group = "", -- symbol prepended to a group
+  lvim.builtin.which_key.setup = {
+    window = {
+      winbled = 10,
+      border = "shadow",
+    },
+    plugins = {
+      presets = {
+        z = true,
+        g = true,
+        windows = true,
+        nav = true,
+        marks = true,
+        registers = true,
+        operators = true,
+        text_objects = true,
+      }
+    },
+    icons = {
+      breadcrumb = "»",
+      separator = "➜",
+      group = "+",
+    },
+    ignore_missing = true,
   }
-  lvim.builtin.which_key.setup.ignore_missing = true
 
   -- Telescope
   -- =========================================

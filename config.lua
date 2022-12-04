@@ -72,6 +72,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
   "tsserver",
   "yamlls",
 })
+
 require("user.null_ls").config()
 
 
