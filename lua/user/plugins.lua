@@ -2,6 +2,14 @@ local M = {}
 
 M.config = function()
   lvim.plugins = {
+    {
+      'pwntester/octo.nvim',
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope.nvim',
+        'kyazdani42/nvim-web-devicons',
+      },
+    },
     { "leoluz/nvim-dap-go" },
     { "folke/zen-mode.nvim" },
     { "eddyekofo94/gruvbox-flat.nvim" },
@@ -139,6 +147,10 @@ M.config = function()
   require("neogen").setup {
     enabled = true,
   }
+  require "octo".setup({
+    default_remote = { "origin" }
+  })
+
 end
 
 return M
