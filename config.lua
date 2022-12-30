@@ -49,19 +49,6 @@ if lvim.builtin.lsp_lines then
   lvim.lsp.diagnostics.virtual_text = false
 end
 
-
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
-  "clangd",
-  "dockerls",
-  "jdtls",
-  "pyright",
-  "rust_analyzer",
-  "taplo",
-  "texlab",
-  "tsserver",
-  "yamlls",
-})
-
 -- Override Lunarvim defaults
 -- =========================================
 require("user.custom_user").config()
