@@ -64,6 +64,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
 
 -- Override Lunarvim defaults
 -- =========================================
+require("user.custom_user").config()
 require("user.builtin").config()
 
 -- StatusLine
@@ -72,7 +73,19 @@ if lvim.builtin.fancy_statusline.active then
   require("user.lualine").config()
 end
 
-
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
+  "clangd",
+  "dockerls",
+  "gopls",
+  "golangci_lint_ls",
+  "jdtls",
+  "pyright",
+  "rust_analyzer",
+  "taplo",
+  "texlab",
+  "tsserver",
+  "yamlls",
+})
 require("user.null_ls").config()
 
 
@@ -82,7 +95,6 @@ require("user.plugins").config()
 -- Autocommands
 -- =========================================
 require("user.autocommands").config()
-require("user.custom_user").config()
 require("user.keybindings").config()
 require("user.whichkeys").config()
 lvim.keys.normal_mode["m"] = {

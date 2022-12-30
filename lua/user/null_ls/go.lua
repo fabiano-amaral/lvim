@@ -89,3 +89,4 @@ M.gomodifytags = helpers.make_code_action {
 }
 
 return M
+
