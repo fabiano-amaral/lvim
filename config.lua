@@ -26,7 +26,7 @@ lvim.builtin.fancy_diff = { active = false }
 lvim.builtin.fancy_statusline = { active = false } -- enable/disable fancy statusline
 lvim.builtin.harpoon = { active = true } -- use the harpoon plugin
 lvim.builtin.sql_integration = { active = false } -- use sql integration
-lvim.builtin.noice = { active = false }
+lvim.builtin.noice = { active = true }
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "custom"
 lvim.builtin.tag_provider = "symbols-outline" -- change this to use different tag providers ( symbols-outline or vista )
