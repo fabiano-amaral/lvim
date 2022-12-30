@@ -37,11 +37,9 @@ M.config = function()
   lvim.builtin.smooth_scroll = "cinnamon"
   lvim.builtin.tree_provider = "neo-tree"
   lvim.builtin.noice.active = false
-  lvim.builtin.go_programming = { active = false }
-  -- lvim.builtin.go_programming.active = false
+  lvim.builtin.go_programming = { active = true }
   lvim.builtin.python_programming = {active = false}
   lvim.builtin.web_programming = { active = false }
-  -- lvim.builtin.rust_programming.active = false
   lvim.builtin.borderless_cmp = true
   -- lvim.builtin.colored_args = true
   -- require("lvim.lsp.manager").setup("prosemd_lsp", {})
