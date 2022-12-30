@@ -2,6 +2,38 @@ local M = {}
 
 M.config = function()
   lvim.plugins = {
+   {
+      "olexsmir/gopher.nvim",
+      config = function()
+        require("gopher").setup {
+          commands = {
+            go = "go",
+            gomodifytags = "gomodifytags",
+            gotests = "gotests",
+            impl = "impl",
+            iferr = "iferr",
+          },
+        }
+      end,
+      ft = { "go", "gomod" },
+      event = { "BufRead", "BufNew" },
+      disable = not lvim.builtin.go_programming.active,
+    },
+    {
+      "leoluz/nvim-dap-go",
+      config = function()
+        require("dap-go").setup()
+      end,
+      ft = { "go", "gomod" },
+      event = { "BufRead", "BufNew" },
+      disable = not lvim.builtin.go_programming.active,
+    },
+    {
+      "AckslD/swenv.nvim",
+      disable = not lvim.builtin.python_programming.active,
+      ft = "python",
+      event = { "BufRead", "BufNew" },
+    },
     {
       'pwntester/octo.nvim',
       requires = {
@@ -25,6 +57,12 @@ M.config = function()
       disable = not lvim.builtin.harpoon.active,
     },
     {
+      "abzcoding/nvim-mini-file-icons",
+      config = function()
+        require("nvim-web-devicons").setup()
+      end,
+      disable = lvim.use_icons or not lvim.builtin.custom_web_devicons,
+    },    {
       "folke/noice.nvim",
       event = "VimEnter",
       config = function()

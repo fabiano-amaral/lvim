@@ -23,7 +23,8 @@ lvim.builtin.sell_your_soul_to_devil = { active = false, prada = false } -- if y
 lvim.builtin.tabnine = { active = true } -- change to false if you don't like tabnine
 lvim.builtin.fancy_wild_menu = { active = true } -- enable/disable cmp-cmdline
 lvim.builtin.fancy_diff = { active = false }
-lvim.builtin.fancy_statusline = { active = false } -- enable/disable fancy statusline
+lvim.builtin.fancy_statusline = { active = true } -- enable/disable fancy statusline
+lvim.builtin.global_statusline = false -- set true to use global statusline
 lvim.builtin.harpoon = { active = true } -- use the harpoon plugin
 lvim.builtin.sql_integration = { active = false } -- use sql integration
 lvim.builtin.noice = { active = true }

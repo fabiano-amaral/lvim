@@ -452,7 +452,6 @@ M.config = function()
   end
 
 
-
   local default_exe_handler = vim.lsp.handlers["workspace/executeCommand"]
   vim.lsp.handlers["workspace/executeCommand"] = function(err, result, ctx, config)
     -- supress NULL_LS error msg

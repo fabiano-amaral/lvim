@@ -24,6 +24,7 @@ M.config = function()
   lvim.builtin.dap.active = true
   vim.g.instant_username = vim.env.USER
   lvim.builtin.global_statusline = true
+  lvim.builtin.fancy_statusline.active = false
   -- lvim.builtin.dressing.active = true
   lvim.builtin.fancy_wild_menu.active = true
   lvim.builtin.refactoring.active = true

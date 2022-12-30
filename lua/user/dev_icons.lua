@@ -57,7 +57,7 @@ M.set_icon = function()
       color = "#5fd7ff",
       name = "MP4",
     },
-    mkv = {
+   mkv = {
       icon = "",
       color = "#5fd7ff",
       name = "MKV",
