@@ -2,6 +2,7 @@ local M = {}
 
 M.config = function()
   lvim.plugins = {
+  { "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, },
    {
       "olexsmir/gopher.nvim",
       config = function()
@@ -42,7 +43,6 @@ M.config = function()
         'kyazdani42/nvim-web-devicons',
       },
     },
-    { "leoluz/nvim-dap-go" },
     { "folke/zen-mode.nvim" },
     { "eddyekofo94/gruvbox-flat.nvim" },
     { 'cljoly/telescope-repo.nvim' },
@@ -57,12 +57,6 @@ M.config = function()
       disable = not lvim.builtin.harpoon.active,
     },
     {
-      "abzcoding/nvim-mini-file-icons",
-      config = function()
-        require("nvim-web-devicons").setup()
-      end,
-      disable = lvim.use_icons or not lvim.builtin.custom_web_devicons,
-    },    {
       "folke/noice.nvim",
       event = "VimEnter",
       config = function()
@@ -188,6 +182,18 @@ M.config = function()
   require "octo".setup({
     default_remote = { "origin" }
   })
+
+  require'nvim-web-devicons'.setup {
+ -- your personnal icons can go here (to override)
+ -- you can specify color or cterm_color instead of specifying both of them
+ -- DevIcon will be appended to `name`
+ -- globally enable different highlight colors per icon (default to true)
+ -- if set to false all icons will have the default icon's color
+ color_icons = true;
+ -- globally enable default icons (default to false)
+ -- will get overriden by `get_icons` option
+ default = true;
+}
 
 end
 

@@ -16,7 +16,7 @@ M.config = function()
     vim.opt.laststatus = 0
     vim.g.tpipeline_cursormoved = 1
   end
-  lvim.builtin.custom_web_devicons = true
+  lvim.builtin.custom_web_devicons = false
   lvim.use_icons = false -- only set to false if you know what are you doing
   lvim.builtin.sell_your_soul_to_devil = { active = true, prada = false }
   lvim.lsp.document_highlight = false

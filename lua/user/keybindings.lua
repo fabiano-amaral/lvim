@@ -162,6 +162,7 @@ M.config = function()
   elseif lvim.builtin.tag_provider == "vista" then
     lvim.builtin.which_key.mappings["o"] = { "<cmd>Vista!!<cr>", "Vista" }
   end
+  lvim.keys.insert_mode["<A-s>"] = "<cmd>lua require('telescope').extensions.luasnip.luasnip(require('telescope.themes').get_cursor({}))<CR>"
 
   local user = vim.env.USER
   if user and user == "abz" then

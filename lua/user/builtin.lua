@@ -1,5 +1,130 @@
 local M = {}
+M.lsp_on_attach_callback = function(client, _)
+  local wkstatus_ok, which_key = pcall(require, "which-key")
+  if not wkstatus_ok then
+    return
+  end
+  local mappings = {}
 
+  local opts = {
+    mode = "n",
+    prefix = "<leader>",
+    buffer = nil,
+    silent = true,
+    noremap = true,
+    nowait = true,
+  }
+  -- local opts = { noremap = true, silent = true }
+  if client.name == "clangd" then
+    if lvim.builtin.cpp_programming.active then
+      mappings["H"] = {
+        "<Cmd>ClangdSwitchSourceHeader<CR>",
+        "Swich Header/Source",
+      }
+      mappings["lg"] = { "<cmd>CMakeGenerate<CR>", "Generate CMake" }
+      mappings["rm"] = { "<cmd>CMakeRun<CR>", "Run CMake" }
+      mappings["mm"] = { "<cmd>CMakeBuild<CR>", "Build CMake" }
+      mappings["dm"] = { "<cmd>CMakeDebug<CR>", "Debug CMake" }
+      mappings["ms"] = { "<cmd>CMakeSelectBuildType<CR>", "Select Build Type" }
+      mappings["mt"] = { "<cmd>CMakeSelectBuildTarget<CR>", "Select Build Target" }
+      mappings["rt"] = { "<cmd>CMakeSelectLaunchTarget<CR>", "Select Launch Target" }
+      mappings["lo"] = { "<cmd>CMakeOpen<CR>", "Open CMake Console" }
+      mappings["lc"] = { "<cmd>CMakeClose<CR>", "Close CMake Console" }
+      mappings["mi"] = { "cmd>CMakeInstall<cr>", "Install CMake Targets" }
+      mappings["mc"] = { "<cmd>CMakeClean<CR>", "Clean CMake Targets" }
+      mappings["rc"] = { "<cmd>CMakeStop<CR>", "Stop CMake" }
+    end
+  elseif client.name == "gopls" then
+    mappings["H"] = {
+      "<Cmd>lua require('lvim.core.terminal')._exec_toggle({cmd='go vet .;read',count=2,direction='float'})<CR>",
+      "Go Vet",
+    }
+    if lvim.builtin.go_programming.active then
+      mappings["li"] = { "<cmd>GoInstallDeps<cr>", "Install Dependencies" }
+      mappings["lT"] = { "<cmd>GoMod tidy<cr>", "Tidy" }
+      mappings["lt"] = { "<cmd>GoTestAdd<cr>", "Add Test" }
+      mappings["tA"] = { "<cmd>GoTestsAll<cr>", "Add All Tests" }
+      mappings["le"] = { "<cmd>GoTestsExp<cr>", "Add Exported Tests" }
+      mappings["lg"] = { "<cmd>GoGenerate<cr>", "Generate" }
+      mappings["lF"] = { "<cmd>GoGenerate %<cr>", "Generate File" }
+      mappings["lc"] = { "<cmd>GoCmt<cr>", "Comment" }
+      mappings["dT"] = { "<cmd>lua require('dap-go').debug_test()<cr>", "Debug Test" }
+    end
+  elseif client.name == "jdtls" then
+    mappings["rf"] = {
+      "<cmd>lua require('toggleterm.terminal').Terminal:new {cmd='mvn package;read', hidden =false}:toggle()<CR>",
+      "Maven Package",
+    }
+    mappings["mf"] = {
+      "<cmd>lua require('toggleterm.terminal').Terminal:new {cmd='mvn compile;read', hidden =false}:toggle()<CR>",
+      "Maven Compile",
+    }
+  elseif client.name == "rust_analyzer" then
+    mappings["H"] = {
+      "<cmd>lua require('lvim.core.terminal')._exec_toggle({cmd='cargo clippy;read',count=2,direction='float'})<CR>",
+      "Clippy",
+    }
+    if lvim.builtin.rust_programming.active then
+      mappings["lA"] = { "<Cmd>RustHoverActions<CR>", "Hover Actions" }
+      mappings["lm"] = { "<Cmd>RustExpandMacro<CR>", "Expand Macro" }
+      mappings["lH"] = { "<Cmd>RustToggleInlayHints<CR>", "Toggle Inlay Hints" }
+      mappings["le"] = { "<Cmd>RustRunnables<CR>", "Runnables" }
+      mappings["lD"] = { "<cmd>RustDebuggables<Cr>", "Debuggables" }
+      mappings["lP"] = { "<cmd>RustParentModule<Cr>", "Parent Module" }
+      mappings["lv"] = { "<cmd>RustViewCrateGraph<Cr>", "View Crate Graph" }
+      mappings["lR"] = {
+        "<cmd>lua require('rust-tools/workspace_refresh')._reload_workspace_from_cargo_toml()<Cr>",
+        "Reload Workspace",
+      }
+      mappings["lc"] = { "<Cmd>RustOpenCargo<CR>", "Open Cargo" }
+      mappings["lo"] = { "<Cmd>RustOpenExternalDocs<CR>", "Open External Docs" }
+    end
+  elseif client.name == "taplo" then
+    if lvim.builtin.rust_programming.active then
+      mappings["lt"] = { "<Cmd>lua require('crates').toggle()<CR>", "Toggle Crate" }
+      mappings["lu"] = { "<Cmd>lua require('crates').update_crate()<CR>", "Update Crate" }
+      mappings["lU"] = { "<Cmd>lua require('crates').upgrade_crate()<CR>", "Upgrade Crate" }
+      mappings["lg"] = { "<Cmd>lua require('crates').update_all_crates()<CR>", "Update All" }
+      mappings["lG"] = { "<Cmd>lua require('crates').upgrade_all_crates()<CR>", "Upgrade All" }
+      mappings["lH"] = { "<Cmd>lua require('crates').open_homepage()<CR>", "Open HomePage" }
+      mappings["lD"] = { "<Cmd>lua require('crates').open_documentation()<CR>", "Open Documentation" }
+      mappings["lR"] = { "<Cmd>lua require('crates').open_repository()<CR>", "Open Repository" }
+      mappings["lv"] = { "<Cmd>lua require('crates').show_versions_popup()<CR>", "Show Versions" }
+      mappings["lF"] = { "<Cmd>lua require('crates').show_features_popup()<CR>", "Show Features" }
+      mappings["lD"] = { "<Cmd>lua require('crates').show_dependencies_popup()<CR>", "Show Dependencies" }
+    end
+  elseif client.name == "tsserver" then
+    mappings["lA"] = { "<Cmd>TSLspImportAll<CR>", "Import All" }
+    mappings["lR"] = { "<Cmd>TSLspRenameFile<CR>", "Rename File" }
+    mappings["lO"] = { "<Cmd>TSLspOrganize<CR>", "Organize Imports" }
+    mappings["li"] = { "<cmd>TypescriptAddMissingImports<Cr>", "AddMissingImports" }
+    mappings["lo"] = { "<cmd>TypescriptOrganizeImports<cr>", "OrganizeImports" }
+    mappings["lu"] = { "<cmd>TypescriptRemoveUnused<Cr>", "RemoveUnused" }
+    mappings["lF"] = { "<cmd>TypescriptFixAll<Cr>", "FixAll" }
+    mappings["lg"] = { "<cmd>TypescriptGoToSourceDefinition<Cr>", "GoToSourceDefinition" }
+  elseif client.name == "pyright" then
+    if lvim.builtin.python_programming.active then
+      mappings["df"] = { "<cmd>lua require('dap-python').test_class()<cr>", "Test Class" }
+      mappings["dm"] = { "<cmd>lua require('dap-python').test_method()<cr>", "Test Method" }
+      mappings["dS"] = { "<cmd>lua require('dap-python').debug_selection()<cr>", "Debug Selection" }
+      mappings["P"] = {
+        name = "Python",
+        i = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Pick Env" },
+        d = { "<cmd>lua require('swenv.api').get_current_venv()<cr>", "Show Env" },
+      }
+    end
+  elseif client.name == "jsonls" then
+    if lvim.builtin.web_programming.active then
+      mappings["ls"] = { "<cmd>lua require('package-info').show()<cr>", "Show pkg info" }
+      mappings["lc"] = { "<cmd>lua require('package-info').hide()<cr>", "Hide pkg info" }
+      mappings["lu"] = { "<cmd>lua require('package-info').update()<cr>", "Update dependency" }
+      mappings["ld"] = { "<cmd>lua require('package-info').delete()<cr>", "Delete dependency" }
+      mappings["li"] = { "<cmd>lua require('package-info').install()<cr>", "Install dependency" }
+      mappings["lC"] = { "<cmd>lua require('package-info').change_version()<cr>", "Change Version" }
+    end
+  end
+  which_key.register(mappings, opts)
+end
 M.config = function()
   local kind = require("user.lsp_kind")
 
@@ -12,21 +137,21 @@ M.config = function()
 
   -- CMP
   lvim.builtin.cmp.sources = {
-    { name = "nvim_lsp" },
-    { name = "cmp_tabnine", max_item_count = 5 },
+{ name = "nvim_lsp" },
+    { name = "cmp_tabnine", max_item_count = 3 },
     { name = "buffer", max_item_count = 5, keyword_length = 5 },
-    -- { name = "treesitter" },
-    -- { name = "luasnip", max_item_count = 3 },
-    -- { name = "path", max_item_count = 5 },
-    -- { name = "nvim_lua" },
-    -- { name = "calc" },
-    -- { name = "emoji" },
+    { name = "path", max_item_count = 5 },
+    { name = "luasnip", max_item_count = 3 },
+    { name = "nvim_lua" },
+    { name = "calc" },
+    { name = "emoji" },
+    { name = "treesitter" },
     -- { name = "latex_symbols" },
-    -- { name = "crates" },
+    { name = "crates" },
     -- { name = "orgmode" },
   }
   lvim.builtin.cmp.experimental = {
-    ghost_text = false,
+    ghost_text = true,
     native_menu = false,
     custom_menu = true,
   }
@@ -451,7 +576,6 @@ M.config = function()
     telescope.load_extension("repo")
   end
 
-
   local default_exe_handler = vim.lsp.handlers["workspace/executeCommand"]
   vim.lsp.handlers["workspace/executeCommand"] = function(err, result, ctx, config)
     -- supress NULL_LS error msg
@@ -460,6 +584,7 @@ M.config = function()
     end
     return default_exe_handler(err, result, ctx, config)
   end
+
   if not lvim.use_icons and lvim.builtin.custom_web_devicons then
     require("user.dev_icons").use_my_icons()
   end
@@ -569,202 +694,5 @@ M.show_documentation = function()
     vim.lsp.buf.hover()
   end
 end
-
-M.lsp_on_attach_callback = function(client, _)
-  local wkstatus_ok, which_key = pcall(require, "which-key")
-  if not wkstatus_ok then
-    return
-  end
-  local mappings = {}
-
-  local opts = {
-    mode = "n",
-    prefix = "<leader>",
-    buffer = nil,
-    silent = true,
-    noremap = true,
-    nowait = true,
-  }
-  -- local opts = { noremap = true, silent = true }
-  if client.name == "clangd" then
-    mappings["H"] = {
-      "<Cmd>ClangdSwitchSourceHeader<CR>",
-      "Swich Header/Source",
-    }
-  elseif client.name == "gopls" then
-    mappings["H"] = {
-      "<Cmd>lua require('lvim.core.terminal')._exec_toggle({cmd='go vet .;read',count=2,direction='float'})<CR>",
-      "Go Vet",
-    }
-    if lvim.builtin.go_programming.active then
-      mappings["li"] = { "<cmd>GoInstallDeps<cr>", "Install Dependencies" }
-      mappings["lT"] = { "<cmd>GoMod tidy<cr>", "Tidy" }
-      mappings["lt"] = { "<cmd>GoTestAdd<cr>", "Add Test" }
-      mappings["tA"] = { "<cmd>GoTestsAll<cr>", "Add All Tests" }
-      mappings["le"] = { "<cmd>GoTestsExp<cr>", "Add Exported Tests" }
-      mappings["lg"] = { "<cmd>GoGenerate<cr>", "Generate" }
-      mappings["lF"] = { "<cmd>GoGenerate %<cr>", "Generate File" }
-      mappings["lc"] = { "<cmd>GoCmt<cr>", "Comment" }
-      mappings["dT"] = { "<cmd>lua require('dap-go').debug_test()<cr>", "Debug Test" }
-    end
-  elseif client.name == "jdtls" then
-    mappings["rf"] = {
-      "<cmd>lua require('toggleterm.terminal').Terminal:new {cmd='mvn package;read', hidden =false}:toggle()<CR>",
-      "Maven Package",
-    }
-    mappings["mf"] = {
-      "<cmd>lua require('toggleterm.terminal').Terminal:new {cmd='mvn compile;read', hidden =false}:toggle()<CR>",
-      "Maven Compile",
-    }
-  elseif client.name == "rust_analyzer" then
-    mappings["H"] = {
-      "<cmd>lua require('lvim.core.terminal')._exec_toggle({cmd='cargo clippy;read',count=2,direction='float'})<CR>",
-      "Clippy",
-    }
-    if lvim.builtin.rust_programming.active then
-      mappings["lA"] = { "<Cmd>RustHoverActions<CR>", "Hover Actions" }
-      mappings["lm"] = { "<Cmd>RustExpandMacro<CR>", "Expand Macro" }
-      mappings["lH"] = { "<Cmd>RustToggleInlayHints<CR>", "Toggle Inlay Hints" }
-      mappings["le"] = { "<Cmd>RustRunnables<CR>", "Runnables" }
-      mappings["lD"] = { "<cmd>RustDebuggables<Cr>", "Debuggables" }
-      mappings["lP"] = { "<cmd>RustParentModule<Cr>", "Parent Module" }
-      mappings["lv"] = { "<cmd>RustViewCrateGraph<Cr>", "View Crate Graph" }
-      mappings["lR"] = {
-        "<cmd>lua require('rust-tools/workspace_refresh')._reload_workspace_from_cargo_toml()<Cr>",
-        "Reload Workspace",
-      }
-      mappings["lc"] = { "<Cmd>RustOpenCargo<CR>", "Open Cargo" }
-      mappings["lo"] = { "<Cmd>RustOpenExternalDocs<CR>", "Open External Docs" }
-    end
-  elseif client.name == "taplo" then
-    if lvim.builtin.rust_programming.active then
-      mappings["lt"] = { "<Cmd>lua require('crates').toggle()<CR>", "Toggle Crate" }
-      mappings["lu"] = { "<Cmd>lua require('crates').update_crate()<CR>", "Update Crate" }
-      mappings["lU"] = { "<Cmd>lua require('crates').upgrade_crate()<CR>", "Upgrade Crate" }
-      mappings["lg"] = { "<Cmd>lua require('crates').update_all_crates()<CR>", "Update All" }
-      mappings["lG"] = { "<Cmd>lua require('crates').upgrade_all_crates()<CR>", "Upgrade All" }
-      mappings["lH"] = { "<Cmd>lua require('crates').open_homepage()<CR>", "Open HomePage" }
-      mappings["lD"] = { "<Cmd>lua require('crates').open_documentation()<CR>", "Open Documentation" }
-      mappings["lR"] = { "<Cmd>lua require('crates').open_repository()<CR>", "Open Repository" }
-      mappings["lv"] = { "<Cmd>lua require('crates').show_versions_popup()<CR>", "Show Versions" }
-      mappings["lF"] = { "<Cmd>lua require('crates').show_features_popup()<CR>", "Show Features" }
-      mappings["lD"] = { "<Cmd>lua require('crates').show_dependencies_popup()<CR>", "Show Dependencies" }
-    end
-  elseif client.name == "tsserver" then
-    mappings["lA"] = { "<Cmd>TSLspImportAll<CR>", "Import All" }
-    mappings["lR"] = { "<Cmd>TSLspRenameFile<CR>", "Rename File" }
-    mappings["lO"] = { "<Cmd>TSLspOrganize<CR>", "Organize Imports" }
-    mappings["li"] = { "<cmd>TypescriptAddMissingImports<Cr>", "AddMissingImports" }
-    mappings["lo"] = { "<cmd>TypescriptOrganizeImports<cr>", "OrganizeImports" }
-    mappings["lu"] = { "<cmd>TypescriptRemoveUnused<Cr>", "RemoveUnused" }
-    mappings["lF"] = { "<cmd>TypescriptFixAll<Cr>", "FixAll" }
-    mappings["lg"] = { "<cmd>TypescriptGoToSourceDefinition<Cr>", "GoToSourceDefinition" }
-  elseif client.name == "pyright" then
-    if lvim.builtin.python_programming.active then
-      mappings["df"] = { "<cmd>lua require('dap-python').test_class()<cr>", "Test Class" }
-      mappings["dm"] = { "<cmd>lua require('dap-python').test_method()<cr>", "Test Method" }
-      mappings["dS"] = { "<cmd>lua require('dap-python').debug_selection()<cr>", "Debug Selection" }
-      mappings["P"] = {
-        name = "Python",
-        i = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Pick Env" },
-        d = { "<cmd>lua require('swenv.api').get_current_venv()<cr>", "Show Env" },
-      }
-    end
-  elseif client.name == "jsonls" then
-    if lvim.builtin.web_programming.active then
-      mappings["ls"] = { "<cmd>lua require('package-info').show()<cr>", "Show pkg info" }
-      mappings["lc"] = { "<cmd>lua require('package-info').hide()<cr>", "Hide pkg info" }
-      mappings["lu"] = { "<cmd>lua require('package-info').update()<cr>", "Update dependency" }
-      mappings["ld"] = { "<cmd>lua require('package-info').delete()<cr>", "Delete dependency" }
-      mappings["li"] = { "<cmd>lua require('package-info').install()<cr>", "Install dependency" }
-      mappings["lC"] = { "<cmd>lua require('package-info').change_version()<cr>", "Change Version" }
-    end
-  end
-  which_key.register(mappings, opts)
-
-  -- LSP
-  -- =========================================
-  if lvim.builtin.go_programming.active then
-    require("lvim.lsp.manager").setup("golangci_lint_ls", {
-      on_init = require("lvim.lsp").common_on_init,
-      capabilities = require("lvim.lsp").common_capabilities(),
-    })
-  end
-
-  lvim.lsp.buffer_mappings.normal_mode["ga"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" }
-  lvim.lsp.buffer_mappings.normal_mode["gI"] = {
-    "<cmd>lua require('user.telescope').lsp_implementations()<CR>",
-    "Goto Implementation",
-  }
-  lvim.lsp.buffer_mappings.normal_mode["gA"] = {
-    "<cmd>lua if vim.bo.filetype == 'rust' then vim.cmd[[RustHoverActions]] else vim.lsp.codelens.run() end<CR>",
-    "CodeLens Action",
-  }
-  lvim.lsp.buffer_mappings.normal_mode["gt"] = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Goto Type Definition" }
-  lvim.lsp.buffer_mappings.normal_mode["gp"] = {
-    function()
-      require("user.peek").Peek "definition"
-    end,
-    "Peek definition",
-  }
-  lvim.lsp.buffer_mappings.normal_mode["K"] = {
-    "<cmd>lua require('user.builtin').show_documentation()<CR>",
-    "Show Documentation",
-  }
-  lvim.lsp.float.border = {
-    { "╔", "FloatBorder" },
-    { "═", "FloatBorder" },
-    { "╗", "FloatBorder" },
-    { "║", "FloatBorder" },
-    { "╝", "FloatBorder" },
-    { "═", "FloatBorder" },
-    { "╚", "FloatBorder" },
-    { "║", "FloatBorder" },
-  }
-  lvim.lsp.diagnostics.float.border = {
-    { " ", "FloatBorder" },
-    { " ", "FloatBorder" },
-    { " ", "FloatBorder" },
-    { " ", "FloatBorder" },
-    { " ", "FloatBorder" },
-    { " ", "FloatBorder" },
-    { " ", "FloatBorder" },
-    { " ", "FloatBorder" },
-  }
-  if vim.env.KITTY_WINDOW_ID then
-    lvim.lsp.float.border = {
-      { "🭽", "FloatBorder" },
-      { "▔", "FloatBorder" },
-      { "🭾", "FloatBorder" },
-      { "▕", "FloatBorder" },
-      { "🭿", "FloatBorder" },
-      { "▁", "FloatBorder" },
-      { "🭼", "FloatBorder" },
-      { "▏", "FloatBorder" },
-    }
-    lvim.lsp.diagnostics.float.border = lvim.lsp.float.border
-  end
-  lvim.lsp.diagnostics.float.focusable = false
-  lvim.lsp.float.focusable = true
-  lvim.lsp.diagnostics.signs.values = {
-    { name = "DiagnosticSignError", text = kind.icons.error },
-    { name = "DiagnosticSignWarn", text = kind.icons.warn },
-    { name = "DiagnosticSignInfo", text = kind.icons.info },
-    { name = "DiagnosticSignHint", text = kind.icons.hint },
-  }
-  lvim.lsp.diagnostics.float.source = "if_many"
-  lvim.lsp.diagnostics.float.format = function(d)
-    local t = vim.deepcopy(d)
-    local code = d.code or (d.user_data and d.user_data.lsp.code)
-    for _, table in pairs(M.codes) do
-      if vim.tbl_contains(table, code) then
-        return table.message
-      end
-    end
-    return t.message
-  end
-  lvim.lsp.on_attach_callback = M.lsp_on_attach_callback
-end
-
 
 return M

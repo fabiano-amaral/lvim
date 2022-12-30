@@ -14,7 +14,7 @@ require("user.neovim").config()
 -- lvim.lsp.diagnostics.virtual_text = false -- remove this line if you want to see inline errors
 
 -- to disable icons and use a minimalist setup, uncomment the following
--- lvim.use_icons = false
+-- lvim.use_icons = true
 
 
 lvim.lsp.installer.setup.automatic_installation = true
@@ -30,6 +30,7 @@ lvim.builtin.sql_integration = { active = false } -- use sql integration
 lvim.builtin.noice = { active = true }
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "custom"
+lvim.builtin.custom_web_devicons = false
 lvim.builtin.tag_provider = "symbols-outline" -- change this to use different tag providers ( symbols-outline or vista )
 lvim.builtin.lsp_lines = false -- enable/disable lsp_lines to display lsp virtual text below instead of behind
 lvim.builtin.refactoring = { active = false } -- enable to use refactoring.nvim code_actions
