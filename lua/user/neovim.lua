@@ -27,7 +27,7 @@ M.config = function()
   vim.g.ultest_summary_width = 30
   vim.g.ultest_deprecation_notice = 0
   vim.opt.completeopt = { "menu", "menuone", "noselect" }
-  vim.opt.relativenumber = false
+  vim.opt.relativenumber = true
   vim.opt.diffopt = {
     "internal",
     "filler",
@@ -48,7 +48,7 @@ M.config = function()
   vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
   vim.wo.foldlevel = 4
   vim.wo.foldtext =
-  [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+    [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
   vim.wo.foldnestmax = 3
   vim.wo.foldminlines = 1
   vim.opt.guifont = "FiraCode Nerd Font:h13"
@@ -148,12 +148,29 @@ M.config = function()
     end,
   })
 
+  if vim.fn.has "nvim-0.8" == 1 then
+    vim.filetype.add {
+      extension = {
+        fnl = "fennel",
+        wiki = "markdown",
+      },
+      filename = {
+        ["go.sum"] = "gosum",
+        ["go.mod"] = "gomod",
+      },
+      pattern = {
+        ["*.tml"] = "gohtmltmpl",
+        ["%.env.*"] = "sh",
+      },
+    }
+  end
+
   if vim.g.neovide then
     vim.g.neovide_cursor_animation_length = 0.01
     vim.g.neovide_cursor_trail_length = 0.05
     vim.g.neovide_cursor_antialiasing = true
     vim.g.neovide_remember_window_size = true
-    vim.cmd [[set guifont=FiraCode\ Nerd\ Font:h14]]
+    vim.cmd [[set guifont=FiraCode\ Nerd\ Font,mini-file-icons]]
   end
 
   if vim.g.nvui then
@@ -248,3 +265,4 @@ function _G.qftf(info)
 end
 
 return M
+

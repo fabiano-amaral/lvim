@@ -24,7 +24,7 @@ M.config = function()
   lvim.builtin.dap.active = true
   vim.g.instant_username = vim.env.USER
   lvim.builtin.global_statusline = true
-  lvim.builtin.dressing.active = true
+  -- lvim.builtin.dressing.active = true
   lvim.builtin.fancy_wild_menu.active = true
   lvim.builtin.refactoring.active = true
   lvim.builtin.test_runner.runner = "neotest"
@@ -37,12 +37,13 @@ M.config = function()
   lvim.builtin.smooth_scroll = "cinnamon"
   lvim.builtin.tree_provider = "neo-tree"
   lvim.builtin.noice.active = true
-  lvim.builtin.go_programming.active = true
-  lvim.builtin.python_programming.active = true
-  lvim.builtin.web_programming.active = true
-  lvim.builtin.rust_programming.active = true
+  lvim.builtin.go_programming = { active = false }
+  -- lvim.builtin.go_programming.active = false
+  lvim.builtin.python_programming = {active = false}
+  lvim.builtin.web_programming = { active = true}
+  -- lvim.builtin.rust_programming.active = false
   lvim.builtin.borderless_cmp = true
-  lvim.builtin.colored_args = true
+  -- lvim.builtin.colored_args = true
   -- require("lvim.lsp.manager").setup("prosemd_lsp", {})
 end
 

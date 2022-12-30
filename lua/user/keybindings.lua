@@ -82,6 +82,13 @@ M.set_hop_keymaps = function()
   )
 end
 
+M.set_lsp_lines_keymap = function()
+  lvim.builtin.which_key.mappings["v"] = {
+    "<cmd>lua require('lsp_lines').toggle()<CR>",
+    "識LSP Lines",
+  }
+end
+
 M.set_task_runner_keymaps = function()
   if lvim.builtin.task_runner == "async_tasks" then
     lvim.builtin.which_key.mappings["m"] = {
